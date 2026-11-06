@@ -1626,7 +1626,7 @@ html[data-admin="0"] .adm-only{display:none!important}
 .wb-card{padding:6px 11px 7px!important;gap:1px!important}
 @media (max-width:1180px){ .wb-days{grid-template-columns:repeat(7,minmax(168px,1fr))!important} }
 /* Jour choisi : les chiffres du jour sont dans l'onglet sélectionné, on ne les répète pas */
-@media (min-width:861px){ .dh2-kpis,.dh2-title span{display:none!important} .dh2{padding-top:8px;padding-bottom:8px} }
+@media (min-width:861px){ .dh2{padding-top:12px;padding-bottom:12px} }
 .dh2 .dh2-tools{margin-left:auto}
 .dh2-bar .dh2-chips{flex:1 1 auto}
 @media (max-width:1180px){ .dh2 .dh2-tools{order:2} }
@@ -1732,6 +1732,102 @@ html[data-admin="0"] .adm-only{display:none!important}
 .wb-cp-more{font-weight:500;color:var(--warn)}
 .al-it.cpi{color:var(--bad)} .al-it.cpd{color:var(--warn)}
 .ds-ck i.cpi{background:var(--bad);border-radius:2px} .ds-ck i.cpd{background:var(--warn);border-radius:2px}
+
+/* ══ VERSION LISIBLE : couleur sur l'écart, sans tolérance ══ */
+/* Jours : heures en grand, barre de productivité et repère de l'objectif */
+.wb-card .wb-r2{align-items:center}
+.wb-flag{font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
+.wb-pvl{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-top:3px}
+.wb-pvl .wb-pv{font-size:13px!important;font-weight:700}
+.wb-pvl>span{font-size:12px;color:var(--pa-muted)}
+.wb-bul{position:relative;display:block;height:6px;border-radius:3px;background:var(--pa-surface2);margin:4px 0 3px}
+.wb-bul i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.wb-bul s{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--pa-text);border-radius:1px}
+.wb-card.closed .wb-ca{color:var(--pa-muted2)}
+/* Phrase d'action de la semaine */
+.wb-reb{display:flex!important;flex-wrap:wrap;gap:2px 8px;align-items:baseline;font-weight:400!important;color:var(--pa-text)!important;padding:4px 12px!important}
+.wb-reb{white-space:normal!important;min-width:0;max-width:100%;overflow:visible!important;text-overflow:clip!important}
+.wb-reb span{white-space:normal!important}
+.wb-reb.act{background:var(--warn-bg);box-shadow:inset 3px 0 0 var(--warn)}
+.wb-reb.ok{background:var(--ok-bg);box-shadow:inset 3px 0 0 var(--ok)}
+.wb-reb b{font-weight:600}
+/* Écart de contrat : pastille */
+.ec-pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ec-pill.w{background:var(--warn-bg);color:var(--warn)} .ec-pill.b{background:var(--bad-bg);color:var(--bad)}
+.ec-eq{color:var(--pa-muted2);font-weight:600}
+/* Liste À traiter */
+.ds-todo .ds-h span{font-weight:600;text-transform:none;letter-spacing:0;color:var(--pa-muted)}
+.ds-todo .ds-ck span b{display:block;font-weight:600;color:var(--pa-text)}
+.ds-todo .ds-ck span small{display:block;font-size:12px;color:var(--pa-muted);line-height:1.35}
+.ds-okl{font-size:12px;color:var(--pa-muted);border-top:1px solid var(--pa-border);padding-top:8px;margin-top:4px}
+/* Frise : ouverture en gris clair, fermeture en blanc, sans hachures */
+.fused-table .gantt-grid{background-color:color-mix(in srgb,var(--pa-text) 3.5%,var(--pa-surface))}
+.gantt-closed{background:var(--pa-surface)!important}
+.fused-table .gantt-bar{filter:saturate(.8)}
+.cv-wrap{height:52px!important}
+/* Sur grand écran, la liste À traiter remplace le bandeau rouge des alertes */
+html.side-on .labor-banner{display:none}
+
+/* ══ Équipe : ordre et période de contrat ══ */
+#dlgCollab .fl-dialog{max-width:620px!important}
+#collabEditorBody{max-height:min(62vh,560px)!important}
+.ce-row{display:flex;gap:10px;align-items:flex-start}
+.ce-row.ce-drag{opacity:.9;box-shadow:0 6px 18px rgba(0,0,0,.12);background:var(--pa-surface);border-radius:var(--r-md);position:relative;z-index:2}
+.ce-move{display:flex;flex-direction:column;align-items:center;gap:1px;padding-top:2px;flex-shrink:0}
+.ce-mv{width:24px;height:20px;border:1px solid var(--pa-border2);background:var(--pa-surface);border-radius:5px;font-size:9px;line-height:1;color:var(--pa-muted);cursor:pointer;padding:0}
+.ce-mv:disabled{opacity:.3;cursor:default}
+.ce-grip{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--pa-muted2);font-size:14px;letter-spacing:-2px;padding:2px 4px;line-height:1}
+.ce-grip:active{cursor:grabbing}
+.ce-fields{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ce-ct{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:12px;color:var(--pa-muted)}
+.ce-ct select{width:auto;font-size:12.5px;padding:4px 8px}
+.ce-ct label{display:flex;align-items:center;gap:5px}
+.ce-ct:not(.on) label{display:none}
+.ce-addd{font:inherit;font-size:12px;border:none;background:none;color:var(--ac-tx);cursor:pointer;padding:2px 0}
+.ce-ct.on .ce-addd{display:none}
+.ce-ct input[type=date]{width:auto;font-size:12.5px;padding:4px 6px}
+.ce-hint{flex-basis:100%;color:var(--warn);font-size:12px}
+.ce-sort{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--pa-muted);padding-bottom:6px;border-bottom:1px solid var(--pa-border);margin-bottom:2px}
+.ce-sort button{font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--pa-border2);background:var(--pa-surface);color:var(--pa-text);cursor:pointer}
+.emp-ct{display:inline-block;font-size:11.5px;padding:0 6px;border-radius:999px;background:var(--pa-surface2);color:var(--pa-muted);white-space:nowrap}
+@media (pointer:coarse){ .ce-input-date{font-size:16px} .ce-ct input,.ce-ct select{font-size:16px} }
+
+/* ══ Maquette : en-tête du jour, résumé semaine en haut, barres fines ══ */
+/* 2. en-tête du jour */
+@media (min-width:861px){
+  .dh2{gap:20px;padding-left:20px;padding-right:20px}
+  .dh2-title b{font-size:19px;font-weight:700}
+  .dh2-title span{font-size:12.5px;font-weight:500}
+  .dh2-kpis{gap:0}
+  .dh2-k{align-items:flex-start;padding:0 18px;border-left:1px solid var(--pa-border)}
+  .dh2-k:first-child{border-left:none;padding-left:0}
+  .dh2-k b{font-size:19px;font-weight:700}
+  .dh2-k small{font-weight:500}
+  .dh2-bar .dh2-tools{margin-left:auto;padding-left:8px}
+  .dh2-kpis{order:1} .dh2-note{order:2}
+}
+@media (min-width:861px) and (max-width:1180px){ .dh2-note{order:3} }
+/* 3. résumé de la semaine dans la barre du haut */
+.cmd-sum{display:none;align-items:baseline;gap:0;font-size:13px;color:var(--pa-muted);white-space:nowrap;margin-left:10px;font-variant-numeric:tabular-nums}
+.cmd-sum>span+span::before{content:"·";margin:0 7px;color:var(--pa-muted2)}
+.cmd-sum b{color:var(--pa-text);font-weight:700}
+.cmd-sum small{font-size:12px;font-weight:600}
+@media (min-width:769px){ html.cmdsum-on .cmd-sum{display:inline-flex} html.cmdsum-on .wb-line-d .wb-sum{display:none!important}
+  html.cmdsum-on .wb-line-d .wb-sum + .wb-it:not(.wb-sum):not(.wb-reb){border-left:none!important;padding-left:0!important} }
+/* 4. barres de la frise plus fines sur fond gris (la zone de prise reste la même hauteur) */
+@media (hover:hover) and (pointer:fine){
+  .fused-table .gantt-grid{border-color:transparent!important;border-radius:8px}
+  .fused-table .gantt-bar{padding:6px 0;background-clip:content-box!important;box-shadow:none!important;border-radius:999px}
+  .fused-table .gantt-bar.drag{box-shadow:none}
+  .fused-table .gantt-pausebar{padding:6px 0;background-clip:content-box!important;border:none!important;border-radius:0;
+    background:repeating-linear-gradient(45deg,#fff 0 3px,var(--pa-border2) 3px 6px)}
+  .fused-table .gantt-pausebar:hover{box-shadow:none!important}
+  .fused-table .gantt-np{top:9px;bottom:9px;font-size:0}
+  .fused-table .gantt-handle::after{opacity:0;transition:opacity .15s ease}
+  .fused-table tr:hover .gantt-handle::after,.fused-table tr.sel-row .gantt-handle::after,.fused-table .dragging .gantt-handle::after{opacity:1}
+  .fused-table .gantt-handle::after{height:8px;background:rgba(255,255,255,.95)}
+  .fused-table .gantt-pausebar .gantt-handle::after{background:var(--pa-text2)}
+}
 </style>
 <body>
 
@@ -1946,6 +2042,7 @@ document.addEventListener('DOMContentLoaded',()=>{ const src=document.getElement
       <button class="cmd-nav" onclick="changeWeek(1)">›</button>
     <button class="cmd-nav cmd-today" onclick="goToday()" title="Aller à aujourd'hui">Aujourd'hui</button>
       <span id="saveIndicator" style="font-size:12px;font-weight:600;margin-left:6px;opacity:0;transition:opacity 1s ease;pointer-events:none;color:rgba(var(--hd-soft-rgb),.7)"></span>
+      <span id="cmdWeekSum" class="cmd-sum" aria-live="polite"></span>
       <span id="lastSaveInfo" class="last-save" onclick="openVersionHistory()"></span>
     </div>
     <div class="user-badge" onclick="openUserManager()" id="userBadge" title="Mon profil" style="display:none">
@@ -2515,7 +2612,7 @@ document.addEventListener('DOMContentLoaded',()=>{ const src=document.getElement
       <button class="dlg-close" onclick="closeCollabEditor()">✕</button>
     </div>
     <div class="dlg-body">
-      <p style="font-size:12px;color:var(--pa-muted);margin-bottom:14px">Modifiez les noms, bases horaires et couleurs. S'applique à tout le planning.</p>
+      <p style="font-size:12px;color:var(--pa-muted);margin-bottom:14px">Modifiez les noms, bases horaires et couleurs. Glissez ⋮⋮ ou utilisez ▲▼ pour changer l'ordre des lignes. Pour un CDD ou un intérimaire, indiquez ses dates : en dehors, il n'apparaît plus dans le planning.</p>
       <div id="collabEditorBody" style="display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto"></div>
     </div>
     <div class="dlg-footer">
@@ -3756,6 +3853,19 @@ function weekRel(sem, delta){
 function slotOf(wk,j,ci){ return wk?.jours?.[j]?.collaborateurs?.[ci]||null; }
 function worked(sl){ return !!sl && sl.statut==='work' && calcH(sl)>0; }
 // Disponibilités : dispo[j] = {t:'all'|'off'|'range', d, f}
+// ══ Période de contrat (CDD, intérim…) : du / au, optionnels ══
+function collHasRange(c){ return !!(c&&(c.du||c.au)); }
+function collOnDay(ci,sem,j){ const c=COLLS[ci]; if(!collHasRange(c)) return true;
+  try{ const iso=cpYmd(dateOfDay(PLANNING_YEAR,sem,j)); return !((c.du&&iso<c.du)||(c.au&&iso>c.au)); }catch(e){ return true; } }
+function collInWeek(ci,sem){ for(let j=0;j<7;j++) if(collOnDay(ci,sem,j)) return true; return false; }
+function collWeekFrac(ci,sem){ if(!collHasRange(COLLS[ci])) return 1; const H=storeHours(); const open=[0,1,2,3,4,5,6].filter(j=>!H[j].closed);
+  if(!open.length) return collInWeek(ci,sem)?1:0; return open.filter(j=>collOnDay(ci,sem,j)).length/open.length; }
+function baseEff(ci,sem,c){ c=c||getCollsForWeek(sem)[ci]||COLLS[ci]||{}; return (+c.base||0)*collWeekFrac(ci,sem); }
+// visible dans la semaine : sous contrat au moins un jour, ou des heures déjà planifiées (on ne cache jamais d'heures)
+function collVisibleWeek(ci,sem){ if(collInWeek(ci,sem)) return true; const wk=DATA[sem]; return !!wk && weekHoursOf(wk,ci)>0; }
+function fmtDFr(iso){ if(!iso) return ''; const [y,m,d]=iso.split('-'); return `${d}/${m}${y&&String(new Date().getFullYear())!==y?'/'+y.slice(2):''}`; }
+function collContractTag(c){ if(!collHasRange(c)) return c&&c.ctype&&c.ctype!=='CDI'?c.ctype:''; const ty=c.ctype&&c.ctype!=='CDI'?c.ctype+' ':'';
+  return ty+(c.du&&c.au?`${fmtDFr(c.du)} → ${fmtDFr(c.au)}`:c.du?`dès ${fmtDFr(c.du)}`:`jusqu’au ${fmtDFr(c.au)}`); }
 function dispoOf(ci,j){ const d=COLLS[ci]?.dispo?.[j]; return d&&d.t?d:{t:'all'}; }
 function dispoTxt(d){ return d.t==='off'?'indisponible':d.t==='range'?`dispo ${d.d}–${d.f}`:'disponible'; }
 
@@ -3830,6 +3940,8 @@ function checkLabor(sem, ci){
       if(rest<LABOR.minDailyRest)
         issues.push({ji:j,code:'REPOS11',msg:`${JCOURT[j]} : ${fT(rest)} de repos depuis ${j>0?'la veille':'dimanche dernier'} < 11h`});
     }
+    // période de contrat (CDD, intérim)
+    if(!collOnDay(ci,sem,j)) issues.push({ji:j,code:'CONTRAT',msg:`${JCOURT[j]} : planifié hors de sa période de contrat (${collContractTag(COLLS[ci])})`});
     // disponibilités du collaborateur
     const dp=dispoOf(ci,j);
     if(dp.t==='off') issues.push({ji:j,code:'DISPO',msg:`${JCOURT[j]} : planifié alors qu'indisponible`});
@@ -3866,7 +3978,7 @@ function checkLabor(sem, ci){
   }
   // temps partiel : heures complémentaires (option)
   const base=+(getCollsForWeek(sem)[ci]?.base)||0;
-  if(C.pt && base>0 && base<35){
+  if(C.pt && base>0 && base<35 && collWeekFrac(ci,sem)>=1){
     const cmax=base*(1+C.ptPct/100);
     if(weekH>=35) issues.push({ji:-1,code:'PARTIEL',msg:`Temps partiel : ${fT(weekH)} atteint la durée légale (35h)`});
     else if(weekH>cmax+1e-6) issues.push({ji:-1,code:'PARTIEL',msg:`Temps partiel : ${fT((weekH-base))} complémentaires > ${C.ptPct} % du contrat (${fT((cmax-base))})`});
@@ -3969,6 +4081,8 @@ function fitCmdBar(){
   bar.classList.remove('two-rows','icons-only');
   const bot=bar.querySelector('.cmd-bar-bottom'), top=bar.querySelector('.cmd-bar-top');
   const isOver=()=>(bot && bot.getBoundingClientRect().right > window.innerWidth+1) || (top && top.scrollWidth > top.clientWidth+2);
+  const sum=document.getElementById('cmdWeekSum'), R_=document.documentElement;
+  if(sum && sum.textContent.trim()){ R_.classList.add('cmdsum-on'); if(isOver()) R_.classList.remove('cmdsum-on'); } else R_.classList.remove('cmdsum-on');
   if(isOver()) bar.classList.add('icons-only');
   if(isOver()){ bar.classList.remove('icons-only'); bar.classList.add('two-rows'); }
 }
@@ -4174,7 +4288,7 @@ function sbSync(){
     document.getElementById('sbItPlanning')?.classList.toggle('on', true);
   }catch(e){}
 }
-try{ if(LS.getItem('atoll_sb_mini')==='1' || (LS.getItem('atoll_sb_mini')==null && window.innerWidth<1600)) document.documentElement.classList.add('sb-mini'); }catch(e){}
+try{ if(LS.getItem('atoll_sb_mini')==='1' || (LS.getItem('atoll_sb_mini')==null && window.innerWidth<1280)) document.documentElement.classList.add('sb-mini'); }catch(e){}
 window.addEventListener('resize',()=>{ if(!isSbDrawer()) closeSbar(); });
 // ══ APPLICATION INSTALLABLE ══
 let _installEvt=null;
@@ -4332,9 +4446,15 @@ function cumulStats(ci, P){
       wH+=calcH(sl); if(sl.statut==='CP'){ cp++; wH+=cpVal; } else if(sl.statut==='MAL') mal++; }
     hTot+=wH; if(i<P.done) hDate+=wH;
   });
-  const auto=!(+c.baseAn>0), baseAn=auto ? Math.round((+c.base||0)*P.total) : +c.baseAn;
-  const basePer=baseAn*P.tracked/P.total;                   // base annuelle ramenée à la période suivie
-  const theoDate=baseAn*P.done/P.total, ecartDate=hDate-theoDate;
+  const auto=!(+c.baseAn>0); let baseAn=auto ? Math.round((+c.base||0)*P.total) : +c.baseAn;
+  let basePer=baseAn*P.tracked/P.total;                   // base annuelle ramenée à la période suivie
+  let theoDate=baseAn*P.done/P.total;
+  if(auto && collHasRange(c)){                              // CDD / intérim : seulement les semaines sous contrat
+    const b=+c.base||0; let fT_=0,fD=0;
+    P.weeks.forEach((w,i)=>{ const f=collWeekFrac(ci,w.s); fT_+=f; if(i<P.done) fD+=f; });
+    baseAn=Math.round(b*getWeekList().reduce((a,s)=>a+collWeekFrac(ci,s),0)); basePer=b*fT_; theoDate=b*fD;
+  }
+  const ecartDate=hDate-theoDate;
   const restW=P.tracked-P.done, reste=basePer-hTot;
   const rythme=restW>0 ? Math.max(0,(basePer-hDate)/restW) : 0;
   return {c,baseAn,basePer,auto,hDate,hTot,theoDate,ecartDate,reste,restW,rythme,cp,mal,done:P.done,total:P.total};
@@ -4532,6 +4652,7 @@ function renderEq(){
     <button onclick="openCollabEditor()" style="background:var(--pa-blue-light);border:1px solid var(--pa-blue-mid);color:var(--pa-blue);padding:3px 10px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700">✏️ Modifier</button>
   </div>`;
   WC.forEach((c,ci)=>{
+    if(!collVisibleWeek(ci,cW)) return;
     let tH=0;for(let j=0;j<7;j++)tH+=calcH(DATA[cW].jours[j].collaborateurs[ci]);
     h+=`<div class="collab-row" onclick="scrollToCollab(${ci})">
       <div class="c-av" style="background:${c.color}">${ini(c.nom)}</div>
@@ -4629,29 +4750,22 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     const ideal = objTot>0 ? ws.tH*obj/objTot : null;       // mêmes heures, réparties selon le budget CA du jour
     return {j,c,obj,ideal,diff: ideal!=null ? c.tH-ideal : null, closed: H[j].closed && c.tH<=0};
   });
+  const _pmax=(()=>{ const ps=days.filter(d=>!d.closed&&d.c.pH>0&&d.obj>0).map(d=>d.c.prod); const m=Math.max(pb||0,...ps,1)*1.1; return pb>0?Math.min(m,pb*2):m; })();
   const cards=days.map(d=>{
     const {j,c,obj,ideal,diff,closed}=d, sel=j===dayIdx, note=getNotes(sem)[j];
     const r = pb>0 && c.pH>0 && obj>0 ? c.prod/pb : null;
-    let col='var(--pa-muted2)', tag='';
-    if(closed){ tag='Fermé'; }
-    else if(r!=null){
-      if(r<0.85){ col='var(--bad)'; tag='Trop d’heures'; }
-      else if(r<1){ col='var(--warn)'; tag='Sous budget'; }
-      else if(r>1.5){ col='var(--need)'; tag='Tendu'; }
-      else { col='var(--ok)'; tag='OK'; }
-    }
-    let ecart='', dc='inherit';
-    if(ideal!=null && !closed){
-      const small=Math.abs(diff)<1;
-      dc= small?'var(--ok)': diff>0?'var(--bad)':'var(--need)';
-      ecart= small?'≈':(diff>0?'+':'−')+f1(Math.abs(diff))+' h';
-    }
-    const tip=`${JOURS[j]} — ${tag||'—'}${obj>0?` · CA ${eur(obj)}`:''}${ideal!=null&&!closed?` · idéal ${f1(ideal)} h selon le CA (écart ${diff>0?'+':'−'}${f1(Math.abs(diff))} h : ${diff>0?'heures en trop':'heures manquantes'})`:''}${r!=null?` · prod. ${Math.round(c.prod)} €/h`:''}`;
-    return `<button type="button" class="wb-card${sel?' sel':''}${closed?' closed':''}" onclick="setDay(${j})" style="--pc:${col}" title="${esc(tip)}">
-      <span class="wb-r1"><span class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note">📝</span>':''}</span><span class="wb-ca">${closed?'':obj>0?eur(obj):''}</span></span>
-      <span class="wb-r2"><span class="wb-h">${closed&&c.tH<=0?'—':f1(c.tH)+'&nbsp;h'}</span>${closed?'':`<b class="wb-pv" style="color:${r!=null?col:'inherit'}">${r!=null?Math.round(c.prod)+' €/h':'—'}</b>`}</span>
-      <span class="wb-r3">${tag?`<span class="wb-st"><i></i>${tag}</span>`:'<span></span>'}${!closed&&ecart?`<b style="color:${dc}">${ecart}</b>`:''}</span>
-      ${closed?'':`<span class="wb-r4">idéal ${ideal!=null?f1(ideal)+'&nbsp;h':'—'}${c.npH>0?` · dont ${f1(c.npH)}&nbsp;h non prod.`:''}</span>`}
+    const under = r!=null && r<1;                                   // sans tolérance : dès le premier euro
+    const col = r==null ? 'var(--pa-muted2)' : under ? 'var(--warn)' : 'var(--ok)';
+    const tag = closed ? 'Fermé' : r==null ? '' : under ? 'Sous l’objectif' : 'Objectif tenu';
+    const pct = r==null ? '' : (r>=1?'+':'−')+Math.abs(Math.round((r-1)*100))+' %';
+    const ecart = ideal!=null && !closed ? (Math.abs(diff)<0.05?'= idéal':(diff>0?'+':'−')+f1(Math.abs(diff))+' h') : '';
+    const tip=`${JOURS[j]} — ${tag||'—'}${obj>0?` · CA ${eur(obj)}`:''}${r!=null?` · productivité ${Math.round(c.prod)} €/h pour un objectif de ${pb} (${pct})`:''}${ideal!=null&&!closed?` · idéal ${f1(ideal)} h selon le CA (${diff>0?'heures en trop':diff<0?'heures manquantes':'équilibré'})`:''}`;
+    return `<button type="button" class="wb-card${sel?' sel':''}${closed?' closed':''}${under?' under':''}" onclick="setDay(${j})" style="--pc:${col}" title="${esc(tip)}">
+      <span class="wb-r1"><span class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note">📝</span>':''}</span><span class="wb-ca">${closed?'fermé':obj>0?eur(obj):''}</span></span>
+      <span class="wb-r2"><span class="wb-h">${closed&&c.tH<=0?'—':f1(c.tH)+'&nbsp;h'}</span>${under?'<span class="wb-flag">sous l’objectif</span>':''}</span>
+      ${closed?'':`<span class="wb-pvl"><b class="wb-pv" style="color:${col}">${r!=null?Math.round(c.prod)+' €/h':'—'}</b><span>${pct}</span></span>
+      <span class="wb-bul" aria-hidden="true">${r!=null?`<i style="width:${Math.min(100,c.prod/_pmax*100).toFixed(1)}%;background:${col}"></i><s style="left:${(pb/_pmax*100).toFixed(1)}%"></s>`:''}</span>
+      <span class="wb-r4">idéal ${ideal!=null?f1(ideal)+'&nbsp;h':'—'}${ecart?' · '+ecart:''}${c.npH>0?` · dont ${f1(c.npH)}&nbsp;h non prod.`:''}</span>`}
     </button>`;
   }).join('');
   // Rééquilibrage suggéré
@@ -4659,26 +4773,31 @@ function renderWeekBand(sem, dayIdx, laborBanner){
   const under=days.filter(d=>d.diff!=null&&d.diff<=-1&&!d.closed).sort((a,b)=>a.diff-b.diff);
   const lst=a=>a.slice(0,3).map(d=>`<span style="white-space:nowrap">${JCOURT[d.j]} ${f1(Math.abs(d.diff))}</span>`).join(' · ');
   const wr = pb>0&&ws.pH>0&&objTot>0 ? ws.prodMoy/pb : null;
-  const wcol = wr==null?'var(--pa-muted)': wr>=1?'var(--ok)': wr>=0.85?'var(--warn)':'var(--bad)';
+  const wcol = wr==null?'var(--pa-muted)': wr>=1?'var(--ok)':'var(--warn)';
   const pctTxt = wr==null ? '' : Math.abs(wr-1)<0.005 ? '= objectif'
     : `${wr>1?'+':'−'}${Math.round(Math.abs(wr-1)*100)} % ${wr>1?'au-dessus de':'sous'} l’objectif`;
+  const lowDays = pb>0 ? days.filter(d=>!d.closed&&d.c.pH>0&&d.obj>0&&d.c.prod<pb) : [];
+  const andList=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' et '+a[a.length-1];
   const rebal = objTot<=0 ? `<div class="wb-reb wb-it muted">Saisissez le budget CA par jour pour voir la répartition idéale.</div>`
-    : (over.length||under.length) ? `<div class="wb-reb wb-it" title="Mêmes heures, réparties selon le budget CA de chaque jour"><span class="wb-reb-l">Rééquilibrer</span>
-        ${over.length?`<span><span class="wb-rl">Retirer</span> <b style="color:var(--bad)">${lst(over)} h</b></span>`:''}
-        ${under.length?`<span><span class="wb-rl">Ajouter</span> <b style="color:var(--need)">${lst(under)} h</b></span>`:''}</div>`
-    : `<div class="wb-reb wb-it" style="color:var(--ok);font-weight:700">✓ Heures bien réparties selon le CA</div>`;
+    : `<div class="wb-reb wb-it ${lowDays.length||over.length||under.length?'act':'ok'}" title="Productivité par jour face à l'objectif · heures réparties selon le budget CA de chaque jour">
+        ${lowDays.length?`<span><b>${andList(lowDays.map(d=>JOURS[d.j]))} ${lowDays.length>1?'sont':'est'} sous l’objectif</b> (${andList(lowDays.map(d=>Math.round(d.c.prod)))} €/h pour ${pb}).</span>`:(pb>0?'<span><b>✓ Tous les jours atteignent l’objectif.</b></span>':'')}
+        ${over.length||under.length?`<span>Rééquilibrer&nbsp;: ${over.length?`retirer ${lst(over)} h`:''}${over.length&&under.length?', ':''}${under.length?`ajouter ${lst(under)} h`:''}.</span>`:'<span>Heures bien réparties selon le CA.</span>'}
+      </div>`;
   const optBtn = objTot>0&&(over.length||under.length) ? `<button type="button" class="wb-opt" onclick="openOptimizer()" title="Voir le planning optimisé (indicatif)">Optimiser</button>` : '';
   const week = (cls)=>`<div class="wb-line ${cls}">
-        <span class="wb-wt" title="${weekRangeLabel(PLANNING_YEAR,sem)}">${fullWeekLabel(sem)}</span>
-        <span class="wb-it"><span class="wb-kl">CA</span> <b>${objTot>0?eur(objTot):'—'}</b></span>
-        <span class="wb-it"><span class="wb-kl">Heures</span> <b>${f1(ws.tH)} h</b></span>
-        <span class="wb-it" title="Productivité ${wr!=null?Math.round(ws.prodMoy):'—'} €/h ÷ objectif ${pb||'—'} €/h"><span class="wb-kl">Prod.</span> <b style="color:${wcol}">${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b> <span class="wb-kl">obj. ${pb||'—'}</span>${wr!=null?` <span class="wb-pct" style="--wc:${wcol}">${pctTxt}</span>`:''}</span>
+        <span class="wb-wt wb-sum" title="${weekRangeLabel(PLANNING_YEAR,sem)}">${fullWeekLabel(sem)}</span>
+        <span class="wb-it wb-sum"><span class="wb-kl">CA</span> <b>${objTot>0?eur(objTot):'—'}</b></span>
+        <span class="wb-it wb-sum"><span class="wb-kl">Heures</span> <b>${f1(ws.tH)} h</b></span>
+        <span class="wb-it wb-sum" title="Productivité ${wr!=null?Math.round(ws.prodMoy):'—'} €/h ÷ objectif ${pb||'—'} €/h"><span class="wb-kl">Prod.</span> <b style="color:${wcol}">${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b> <span class="wb-kl">obj. ${pb||'—'}</span>${wr!=null?` <span class="wb-pct" style="--wc:${wcol}">${pctTxt}</span>`:''}</span>
         ${(()=>{ const k=weekMonthKey(sem), b=+hBudgetOf()[k]||0; if(!b) return ''; const m=(monthHoursMap()[k]||{plan:0}); const s=envStatus(m.plan,b);
           return `<button type="button" class="wb-it wb-env" onclick="openEnvelope()" title="Enveloppe d'heures de ${monthLabel(k)} : ${Math.round(m.plan)} h planifiées pour ${b} h"><span class="wb-kl">Enveloppe ${MOIS_LONG[+k.split('-')[1]-1].slice(0,4)}.</span> <b style="color:${s.col}">${Math.round(m.plan)} / ${b} h</b></button>`; })()}
         ${(()=>{ const c=cpLevelForWeek(sem); if(!c) return ''; return `<span class="wb-it wb-cp ${c.n==='I'?'i':'d'}" title="Calendrier de pose de CP — ${c.n==='I'?'période interdite : forte activité commerciale, toutes les compétences sur le terrain':'période déconseillée : à valider par le Directeur Régional'}">${c.n==='I'?'⛔ CP interdits':'CP à valider DR'} · ${esc(c.evts.join(' · '))}${c.autres&&c.autres.length?` <span class="wb-cp-more">+ à valider : ${esc(c.autres.join(' · '))}</span>`:''}</span>`; })()}
         ${rebal}
         ${optBtn}
       </div>`;
+  try{ const el=document.getElementById('cmdWeekSum'); if(el){
+    el.innerHTML=`<span>${weekRangeLabel(PLANNING_YEAR,sem)}</span><span>CA <b>${objTot>0?eur(objTot):'—'}</b></span><span><b>${f1(ws.tH)} h</b></span><span title="Productivité de la semaine${pb?' · objectif '+pb+' €/h':''}"><b style="color:${wcol}">${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b>${pctTxt?` <small style="color:${wcol}">${wr>1?'+':'−'}${Math.round(Math.abs(wr-1)*100)} %</small>`:''}</span>`;
+    el.title=`${fullWeekLabel(sem)} · ${weekRangeLabel(PLANNING_YEAR,sem)}${pctTxt?' · '+pctTxt:''}`; setTimeout(()=>{ try{ fitCmdBar(); }catch(e){} },0); } }catch(e){}
   return `<div class="wb">
     ${laborBanner}
     ${week('wb-line-d')}
@@ -4782,20 +4901,25 @@ function renderDaySide(counts, US, calc, s){
       :`<div class="ds-empty" style="margin-top:6px">${{R:'Repos',CP:'Congé payé',MAL:'Arrêt maladie'}[sl.statut]||'Pas de créneau'} ce jour-là.</div>`}
       <button type="button" class="ds-more" onclick="openHM(${ci})">Activités et options avancées…</button></div>`;
   }
-  // Contrôles
-  const items=[];
-  if(ci!=null && WC[ci]){
-    const iss=checkLabor(cW,ci).filter(i=>i.ji===cD||i.ji===-1);
-    if(iss.length) iss.forEach(i=>items.push([i.sev||'bad',i.msg])); else items.push(['ok',`${esc(WC[ci].nom)} : repos, pauses et durées conformes`]);
-  } else {
-    const all=checkLaborWeek(cW).reduce((a,x)=>a+x.issues.filter(i=>i.ji===cD).length,0);
-    items.push(all?['bad',`${all} alerte${all>1?'s':''} droit du travail ce jour`]:['ok','Droit du travail : aucune alerte ce jour']);
-  }
-  { const cpd=cpLevelForDay(cW,cD); if(cpd) items.unshift([cpd.n==='I'?'cpi':'cpd', (cpd.n==='I'?'Période interdite aux CP':'CP déconseillés, à valider par le Directeur Régional')+' : '+cpd.evts.join(' · ')]); }
-  if(US.runs.length) US.runs.forEach(r=>items.push(['warn',`${fmtHM(r.from)}–${fmtHM(r.to)} : ${r.n} en surface pour un besoin de ${r.need}`]));
-  else if(US.first>=0) items.push(['ok',`Couverture : minimum ${US.min} et pics tenus`]);
-  if(calc.tH>0 && s.prod_budget>0){ const r=calc.prod/s.prod_budget; items.push([r>=1?'ok':r>=.85?'warn':'bad',`Productivité ${Math.round(calc.prod)} €/h pour un objectif de ${s.prod_budget}`]); }
-  const ctl=`<div class="ds-card"><div class="ds-h">Contrôles</div>${items.map(([k,m])=>`<div class="ds-ck"><i class="${k}"></i><span>${m}</span></div>`).join('')}</div>`;
+  // ── À traiter : tout ce qui demande une action, trié par gravité ──
+  const T=[]; const add=(sev,title,sub,ord)=>T.push({sev,title,sub,ord:ord??(sev==='bad'?0:sev==='warn'?1:2)});
+  const cpd=cpLevelForDay(cW,cD);
+  if(cpd) add(cpd.n==='I'?'bad':'warn', cpd.n==='I'?'Période interdite aux CP':'CP déconseillés ce jour', cpd.evts.join(' · ')+(cpd.n==='I'?'':' · à valider par le Directeur Régional'));
+  if(US.runs.length) US.runs.forEach(r=>add('bad',`${fmtHM(r.from)} – ${fmtHM(r.to)} : ${r.n} en surface pour ${r.need}`,'Décaler une pause ou ajouter un renfort'));
+  const pbd=+s.prod_budget||0;
+  if(calc.tH>0 && pbd>0 && calc.prod<pbd) add('warn',`Productivité ${Math.round(calc.prod)} €/h pour ${pbd}`,`${Math.round((1-calc.prod/pbd)*100)} % sous l’objectif : trop d’heures ce jour`);
+  const lw=checkLaborWeek(cW); let nLab=0;
+  lw.forEach(x=>x.issues.forEach(i=>{ if(i.ji===cD||i.ji===-1){ nLab++; const cp=i.code==='CPI'||i.code==='CPD'; add(i.sev||'bad', `${esc(x.nom)}`, esc(i.msg)); } }));
+  const nWeek=lw.reduce((a,x)=>a+x.issues.length,0);
+  // écarts de contrat sur la semaine (sans tolérance), les plus forts d'abord
+  const ec=[]; WC.forEach((c,i)=>{ let wH=0; for(let j=0;j<7;j++) wH+=calcH(DATA[cW].jours[j].collaborateurs[i]); const bE=baseEff(i,cW,c), d=wH-bE; if(Math.abs(d)>=0.01) ec.push({c,d,wH,bE}); });
+  ec.sort((a,b)=>Math.abs(b.d)-Math.abs(a.d)).slice(0,3).forEach(x=>add('warn',`${esc(x.c.nom)} : ${(x.d>0?'+':'')+fT(x.d)} sur son contrat`,`${fT(x.wH)} pour ${fT(x.bE)} cette semaine${x.bE<(+x.c.base||0)-0.01?' (contrat au prorata)':''}`,3));
+  T.sort((a,b)=>a.ord-b.ord);
+  const okl=[]; if(!nLab) okl.push('repos, pauses et durées conformes'); if(!US.runs.length&&US.first>=0) okl.push(`couverture tenue (minimum ${US.min})`); if(calc.tH>0&&pbd>0&&calc.prod>=pbd) okl.push(`productivité ${Math.round(calc.prod)} €/h ≥ ${pbd}`);
+  const ctl=`<div class="ds-card ds-todo"><div class="ds-h">À traiter <span>${T.length?T.length+' point'+(T.length>1?'s':''):'rien'}</span></div>
+    ${T.map(x=>`<div class="ds-ck"><i class="${x.sev}"></i><span><b>${x.title}</b>${x.sub?`<small>${x.sub}</small>`:''}</span></div>`).join('')||'<div class="ds-empty">Rien à traiter pour ce jour.</div>'}
+    ${okl.length?`<div class="ds-okl">✓ ${okl.join(' · ')}</div>`:''}
+    ${nWeek>nLab?`<button type="button" class="ds-more" onclick="openAlerts()">Toutes les alertes de la semaine (${nWeek})</button>`:''}</div>`;
   return ed+ctl;
 }
 
@@ -4920,7 +5044,7 @@ document.addEventListener('scroll',()=>{ if(!(typeof ganttDrag!=='undefined'&&ga
 function gridVars(){ const span=VIEW_E-VIEW_S; document.querySelectorAll('.fused-table .gantt-grid').forEach(g=>{ g.style.setProperty('--hs',span*2); g.style.setProperty('--qs',span*4); });
   document.querySelectorAll('.fused-table .gantt-grid').forEach(g=>g.querySelectorAll('.gantt-tick.h').forEach((tk,i)=>{ if((VIEW_S+i)%2===0) tk.classList.add('even'); })); }
 
-function dayLayout(){ const w=document.getElementById('dayWrap'); if(!w) return; w.classList.toggle('narrow', w.clientWidth<1180 || window.innerWidth<=768); }
+function dayLayout(){ const w=document.getElementById('dayWrap'); if(!w) return; w.classList.toggle('narrow', w.clientWidth<1180 || window.innerWidth<=768); document.documentElement.classList.toggle('side-on', !w.classList.contains('narrow') && window.innerWidth>768); }
 window.addEventListener('resize',()=>{ clearTimeout(window._dlT); window._dlT=setTimeout(dayLayout,120); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape' && SEL_CI!=null && document.getElementById('dayWrap') && !document.querySelector('.open')){ SEL_CI=null; renderContent(); } });
 function f1v(v){ return (Math.round(v*10)/10).toFixed(1).replace('.',','); }
@@ -4965,22 +5089,22 @@ function renderContent(){
   const _pb=s.prod_budget||0, _note=getNotes(cW)[cD]||'';
   let panel=`<div class="detail-card">
     <div class="dh2">
-      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}</span></div>
+      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}</span></div>
       <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><input class="note-inp" value="${esc(_note)}" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></label>
       <div class="dh2-kpis">
         <div class="dh2-k"><small>Obj. CA</small><b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b></div>
         <div class="dh2-k"><small>Heures</small><b>${_f1(calc.tH)} h</b>${calc.npH>0?`<em>dont ${_f1(calc.npH)} h non prod.</em>`:''}</div>
         <div class="dh2-k"><small>Productivité</small><b style="color:${calc.tH>0?pcTxt:'inherit'}">${calc.tH>0?Math.round(calc.prod)+' €/h':'—'}</b>${_pb?`<em>obj. ${_pb}</em>`:''}</div>
       </div>
+    </div>
+    <div class="dh2-bar">
+      <span class="dh2-lbl">Plages</span><div class="dh2-chips">${chips}</div>
       <div class="dh2-tools">
         <button class="tool-btn ai" onclick="openAIAnalysis()" title="Analyse et optimisation de la semaine">Analyse IA</button>
         <button class="tool-btn" id="undoBtn" onclick="undo()" title="Annuler la dernière modification (Ctrl+Z)">↶<span class="tl"> Annuler</span></button>
         <button class="tool-btn" onclick="openDuplicate()" title="Copier cette semaine sur les semaines suivantes">⧉<span class="tl"> Dupliquer</span></button>
         <button class="tool-btn" onclick="openTypeWeeks()" title="Horaires habituels et cycles de travail par collaborateur">★<span class="tl"> Semaines types</span></button>
       </div>
-    </div>
-    <div class="dh2-bar">
-      <span class="dh2-lbl">Plages</span><div class="dh2-chips">${chips}</div>
     </div>
     <table class="fl-table fused-table">
       <thead><tr>
@@ -4996,6 +5120,7 @@ function renderContent(){
       </tr></thead><tbody>%%COVCHART%%`;
 
   WC.forEach((c,ci)=>{
+    if(!collOnDay(ci,cW,cD) && !(calcH(dayData.collaborateurs[ci])>0)) return;   // hors contrat ce jour (CDD, intérim) : ligne masquée
     const slot=dayData.collaborateurs[ci],h=calcH(slot);
     let dc,pc2,fc,badge;
     if(slot.statut!=='work'){
@@ -5054,7 +5179,8 @@ function renderContent(){
 
     // hebdo + écart
     let wH=0;for(let j=0;j<7;j++)wH+=calcH(DATA[cW].jours[j].collaborateurs[ci]);
-    const diff=wH-c.base;
+    const _bE=baseEff(ci,cW,c);
+    const diff=wH-_bE;
     const diffCol=Math.abs(diff)<0.05?'var(--pa-green)':diff>0?'var(--pa-orange)':'var(--pa-red)';
     const diffStr=Math.abs(diff)<0.05?'✓':(diff>0?'+':'')+fT(diff);
 
@@ -5067,12 +5193,12 @@ function renderContent(){
     panel+=`<tr id="c${ci}" class="${laborIssues.length?'labor-row':''}${ci===SEL_CI?' sel-row':''}">
       <td class="c-emp" onclick="selectSlot(${ci})" style="cursor:pointer" title="${esc(c.nom)} — toucher pour modifier le créneau"><div class="emp-cell">
         <div class="emp-av" style="background:${c.color}">${ini(c.nom)}</div>
-        <div style="min-width:0"><div class="emp-nm" title="${esc(c.nom)}">${c.nom}</div><div class="emp-tp">${c.base}h/sem ${laborBadge}</div></div>
+        <div style="min-width:0"><div class="emp-nm" title="${esc(c.nom)}">${c.nom}</div><div class="emp-tp">${c.base}h/sem${collHasRange(c)||c.ctype&&c.ctype!=='CDI'?` <span class="emp-ct" title="Période de contrat">${esc(collContractTag(c))}</span>`:''} ${laborBadge}</div></div>
       </div></td>
       <td class="c-hor" data-l="Horaire" onclick="openHM(${ci})" style="cursor:pointer" title="Modifier l'horaire">${dc}${pc2}</td>
       <td class="c-bar" style="padding:4px 8px"><div class="gantt-grid" style="height:24px">${peakBands}${ticks}${bar}${pauseEl}${npBars(slot)}</div></td>
       <td class="c-heb" data-l="Semaine" style="text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-left:2px solid var(--pa-blue-mid)">${fT(wH)}</td>
-      <td class="c-ecart" data-l="Écart contrat" style="text-align:center;font-weight:700;color:${diffCol};font-size:12px">${diffStr}</td>
+      <td class="c-ecart" data-l="Écart contrat" style="text-align:center">${Math.abs(diff)<0.01?'<span class="ec-eq">=</span>':`<span class="ec-pill ${diff>0?'w':'b'}">${(diff>0?'+':'')+fT(diff)}</span>`}</td>
       <td class="c-act" style="text-align:center;white-space:nowrap">
         <button onclick="quickRepos(${ci})" title="Mettre en repos" style="background:var(--pa-surface);border:1px solid var(--pa-border2);color:var(--pa-muted);width:26px;height:23px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;margin-right:2px">R</button>
         <button onclick="clearDay(${ci})" title="Effacer les heures" style="background:var(--pa-surface);border:1px solid var(--pa-border2);color:var(--pa-red);width:26px;height:23px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700">✕</button>
@@ -5111,7 +5237,7 @@ function renderContent(){
 
   // Total équipe
   let teamWH=0,teamBase=0;
-  WC.forEach((c,ci)=>{for(let j=0;j<7;j++)teamWH+=calcH(DATA[cW].jours[j].collaborateurs[ci]);teamBase+=c.base;});
+  WC.forEach((c,ci)=>{for(let j=0;j<7;j++)teamWH+=calcH(DATA[cW].jours[j].collaborateurs[ci]);teamBase+=baseEff(ci,cW,c);});
   const teamDiff=teamWH-teamBase;
   const teamDiffCol=Math.abs(teamDiff)<0.05?'var(--pa-green)':teamDiff>0?'var(--pa-orange)':'var(--pa-red)';
   const teamDiffStr=(teamDiff>0?'+':'')+fT(teamDiff);
@@ -5121,7 +5247,7 @@ function renderContent(){
     <td class="c-hor"><b class="hor-t">${fT(calc.tH)}</b></td>
     <td class="c-bar" style="padding:4px 8px"><div style="display:flex;height:18px;align-items:center;border-top:1px dashed var(--pa-border2)"><div style="position:relative;flex:1;height:14px;background:var(--pa-surface2);border:1px solid var(--pa-border);border-radius:6px;overflow:hidden">${nowLine}${countSegs}${countNums}</div></div></td>
     <td class="c-heb" data-l="Semaine équipe" style="text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-left:2px solid var(--pa-blue-mid)">${fT(teamWH)}</td>
-    <td class="c-ecart" data-l="Écart contrats" style="text-align:center;font-weight:700;color:${teamDiffCol};font-size:12px">${teamDiffStr}</td>
+    <td class="c-ecart" data-l="Écart contrats" style="text-align:center">${Math.abs(teamDiff)<0.01?'<span class="ec-eq">=</span>':`<span class="ec-pill ${teamDiff>0?'w':'b'}">${teamDiffStr}</span>`}</td>
     <td class="t-leg" style="font-size:12px;color:var(--pa-muted);text-align:center;line-height:1.2"><span style="color:var(--ok)">●</span>5+ <span style="color:var(--info)">●</span>3-4 <span style="color:var(--warn)">●</span>1-2</td>
   </tr>
   <tr class="cover-tr"><td colspan="6" class="cover-line">
@@ -5183,6 +5309,7 @@ function renderWeekPanel(sem){
   let totalH=0, totalBase=0;
 
   WC.forEach((c,ci)=>{
+    if(!collVisibleWeek(ci,sem)) return;
     let rowH=0;
     tbody+=`<tr><td class="collab-td">
       <div style="display:flex;align-items:center;gap:7px">
@@ -5198,7 +5325,8 @@ function renderWeekPanel(sem){
       const isToday=dateOfDay(PLANNING_YEAR,sem,ji)?.toDateString()===new Date().toDateString();
       const bg=isToday?'background:rgba(var(--ac-rgb),.04);':ji===cD?'background:rgba(var(--ac-rgb),.06);':'';
 
-      if(slot.statut==='R')   tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2);font-size:12px;font-style:italic">Repos</span></td>`;
+      if(h<=0 && !collOnDay(ci,sem,ji)) tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2);font-size:12px">hors contrat</span></td>`;
+      else if(slot.statut==='R')   tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2);font-size:12px;font-style:italic">Repos</span></td>`;
       else if(slot.statut==='CP')  tbody+=`<td style="${bg}"><span style="color:var(--pa-yellow);font-weight:700;font-size:12px">CP</span></td>`;
       else if(slot.statut==='MAL') tbody+=`<td style="${bg}"><span style="color:var(--pa-red);font-weight:700;font-size:12px">MAL</span></td>`;
       else if(h<=0) tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2)">—</span></td>`;
@@ -5564,6 +5692,7 @@ function printWeek(){
 
   const totals=new Array(7).fill(0);
   WC.forEach((c,ci)=>{
+    if(!collVisibleWeek(ci,cW)) return;
     let rowH=0;
     const rowBg=ci%2===0?'':'background:#f9f9f9';
     tbl+=`<tr style="${rowBg}"><td class="collab" style="padding-left:2.5mm">
@@ -5572,7 +5701,8 @@ function printWeek(){
     JOURS.forEach((_,ji)=>{
       const slot=DATA[cW].jours[ji].collaborateurs[ci];
       const h=calcH(slot); rowH+=h; totals[ji]+=h;
-      if(slot.statut==='R')        tbl+=`<td class="pv-cell-r">R</td>`;
+      if(h<=0 && !collOnDay(ci,cW,ji)) tbl+=`<td style="text-align:center;color:#bbb">·</td>`;
+      else if(slot.statut==='R')        tbl+=`<td class="pv-cell-r">R</td>`;
       else if(slot.statut==='CP')  tbl+=`<td class="pv-cell-cp">CP</td>`;
       else if(slot.statut==='MAL') tbl+=`<td class="pv-cell-mal">MAL</td>`;
       else if(h<=0)                tbl+=`<td style="text-align:center;color:#bbb">—</td>`;
@@ -5582,8 +5712,8 @@ function printWeek(){
         <span style="font-size:8pt">${slot.fin}</span>
       </td>`;
     });
-    const diff=rowH-c.base;
-    const ds=diff===0?'':`<div style="font-size:6.5pt;color:${diff>0?'var(--warn)':'var(--bad)'}">${diff>0?'+':''}${fT(diff)}</div>`;
+    const diff=rowH-baseEff(ci,cW,c);
+    const ds=Math.abs(diff)<0.01?'':`<div style="font-size:6.5pt;color:${diff>0?'var(--warn)':'var(--bad)'}">${diff>0?'+':''}${fT(diff)}</div>`;
     tbl+=`<td style="text-align:center;font-weight:700;font-size:9pt">${fT(rowH)}${ds}</td>`;
     tbl+=`<td style="text-align:center;color:#666;font-size:8pt">${c.base}h</td></tr>`;
   });
@@ -6012,34 +6142,108 @@ function applyConfirm(){
 // ══════════════════════════════════════
 // COLLAB EDITOR
 // ══════════════════════════════════════
+let CE_ORDER=null;   // ordre d'affichage en cours d'édition (indices d'origine) — appliqué à l'enregistrement
 function openCollabEditor(){
+  CE_ORDER=COLLS.map((_,i)=>i);
   renderCollabEditor();
   document.getElementById('dlgCollab').classList.add('open');
 }
 function renderCollabEditor(){
   const body=document.getElementById('collabEditorBody');
-  body.innerHTML=COLLS.map((c,ci)=>`
+  if(!CE_ORDER || CE_ORDER.length!==COLLS.length) CE_ORDER=COLLS.map((_,i)=>i);
+  const n=CE_ORDER.length;
+  const row=(ci,pos)=>{ const c=COLLS[ci]; const ty=c.ctype||'CDI', temp=ty!=='CDI';
+    return `
     <div class="ce-row" data-ci="${ci}">
+      <div class="ce-move">
+        <button type="button" class="ce-mv" onclick="ceMove(${pos},-1)" ${pos===0?'disabled':''} title="Monter" aria-label="Monter">▲</button>
+        <span class="ce-grip" title="Glisser pour déplacer" aria-hidden="true">⋮⋮</span>
+        <button type="button" class="ce-mv" onclick="ceMove(${pos},1)" ${pos===n-1?'disabled':''} title="Descendre" aria-label="Descendre">▼</button>
+      </div>
       <div class="ce-av" style="background:${c.color}">${ini(c.nom)}</div>
       <div class="ce-fields">
         <div style="display:flex;gap:8px;align-items:center">
-          <input class="fl-inp" type="text" value="${c.nom}" placeholder="Nom" style="flex:1;font-size:13px;padding:6px 10px"
+          <input class="fl-inp" type="text" value="${esc(c.nom)}" placeholder="Nom" style="flex:1;min-width:0;font-size:13px;padding:6px 10px"
             oninput="COLLS[${ci}].nom=this.value;updateCeAv(${ci})">
-          <input class="fl-inp" type="number" value="${c.base}" min="0" max="48" style="width:70px;font-size:13px;padding:6px 10px;text-align:center"
+          <input class="fl-inp" type="number" value="${c.base}" min="0" max="48" style="width:62px;font-size:13px;padding:6px 8px;text-align:center"
             oninput="COLLS[${ci}].base=+this.value">
           <span style="font-size:12px;color:var(--pa-muted);white-space:nowrap">h/sem</span>
-          <button onclick="deleteCollab(${ci})" title="Supprimer ce collaborateur" style="background:var(--pa-surface);border:1px solid var(--pa-border2);color:var(--pa-red);width:30px;height:30px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;font-weight:700;font-family:inherit;transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s,opacity .2s,transform .2s">✕</button>
+          <button onclick="deleteCollab(${ci})" title="Supprimer ce collaborateur" style="background:var(--pa-surface);border:1px solid var(--pa-border2);color:var(--pa-red);width:30px;height:30px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;flex-shrink:0">✕</button>
+        </div>
+        <div class="ce-ct${temp||c.du||c.au?' on':''}">
+          <select class="fl-inp" onchange="ceSetType(${ci},this.value)" title="Type de contrat">
+            ${['CDI','CDD','Intérim','Étudiant','Renfort'].map(v=>`<option${v===ty?' selected':''}>${v}</option>`).join('')}
+          </select>
+          ${temp||c.du||c.au?'':`<button type="button" class="ce-addd" onclick="this.parentNode.classList.add('on')">＋ Dates de contrat</button>`}
+          <label>du <input class="fl-inp" type="date" value="${c.du||''}" onchange="ceSetDate(${ci},'du',this.value)"></label>
+          <label>au <input class="fl-inp" type="date" value="${c.au||''}" onchange="ceSetDate(${ci},'au',this.value)"></label>
+          ${temp&&!c.au?'<span class="ce-hint">Date de fin conseillée : il disparaîtra du planning ensuite</span>':''}
         </div>
         <div class="ce-colors">${PCOLS.map(col=>
           `<div class="csw${col===c.color?' sel':''}" style="background:${col};width:18px;height:18px"
             onclick="setCCollColor(${ci},'${col}',this)"></div>`
         ).join('')}</div>
       </div>
-    </div>`).join('');
+    </div>`; };
+  body.innerHTML=`<div class="ce-sort"><span>Trier</span>
+      <button type="button" onclick="ceSort('nom')">A → Z</button>
+      <button type="button" onclick="ceSort('base')">Contrat (h)</button>
+      <button type="button" onclick="ceSort('type')">CDI d’abord</button>
+      <button type="button" onclick="ceSort('reset')" title="Revenir à l'ordre actuel">Annuler le tri</button></div>`
+    + CE_ORDER.map((ci,pos)=>row(ci,pos)).join('');
   // Bouton ajouter
-  body.innerHTML += `<button onclick="addCollab()" style="margin-top:8px;background:var(--pa-surface);border:1px dashed var(--pa-border2);color:var(--pa-text2);padding:14px;border-radius:var(--r-md);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s,opacity .2s,transform .2s;width:100%">
+  body.innerHTML += `<button onclick="addCollab()" style="margin-top:8px;background:var(--pa-surface);border:1px dashed var(--pa-border2);color:var(--pa-text2);padding:14px;border-radius:var(--r-md);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;width:100%">
     <span style="font-size:18px;line-height:1">＋</span> Ajouter un collaborateur
   </button>`;
+  ceGripInit(body);
+}
+function ceSetType(ci,v){ COLLS[ci].ctype=v; if(v==='CDI') delete COLLS[ci].ctype; renderCollabEditor(); }
+function ceSetDate(ci,k,v){
+  if(v) COLLS[ci][k]=v; else delete COLLS[ci][k];
+  const c=COLLS[ci]; if(c.du&&c.au&&c.au<c.du){ toast('⚠ La date de fin est avant la date de début','var(--pa-red)'); }
+  renderCollabEditor();
+}
+function ceMove(pos,dir){ const to=pos+dir; if(to<0||to>=CE_ORDER.length) return; const [x]=CE_ORDER.splice(pos,1); CE_ORDER.splice(to,0,x); renderCollabEditor(); }
+function ceSort(k){
+  const typeRank=c=>({CDI:0,CDD:1,'Intérim':2,'Étudiant':3,Renfort:4})[c.ctype||'CDI']??5;
+  if(k==='reset'){ CE_ORDER=COLLS.map((_,i)=>i); }
+  else CE_ORDER.sort((a,b)=>{ const A=COLLS[a],B=COLLS[b];
+    if(k==='nom') return (A.nom||'').localeCompare(B.nom||'','fr',{sensitivity:'base'});
+    if(k==='base') return (+B.base||0)-(+A.base||0) || (A.nom||'').localeCompare(B.nom||'','fr');
+    return typeRank(A)-typeRank(B) || (+B.base||0)-(+A.base||0); });
+  renderCollabEditor();
+}
+// Glisser la poignée ⋮⋮ pour déplacer une ligne (souris et doigt)
+function ceGripInit(body){
+  body.querySelectorAll('.ce-grip').forEach(g=>{
+    g.addEventListener('pointerdown',e=>{
+      const rowEl=g.closest('.ce-row'); if(!rowEl) return; e.preventDefault();
+      rowEl.classList.add('ce-drag');   // écoute sur la fenêtre : déplacer la ligne dans le DOM ferait perdre la capture
+      const move=ev=>{
+        const rows=[...body.querySelectorAll('.ce-row:not(.ce-drag)')];
+        const after=rows.find(r=>{ const b=r.getBoundingClientRect(); return ev.clientY < b.top+b.height/2; });
+        if(after) body.insertBefore(rowEl,after); else { const last=rows[rows.length-1]; if(last) last.after(rowEl); }
+        const sc=body.getBoundingClientRect(); if(ev.clientY<sc.top+24) body.scrollTop-=8; else if(ev.clientY>sc.bottom-24) body.scrollTop+=8;
+      };
+      const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); window.removeEventListener('pointercancel',up);
+        rowEl.classList.remove('ce-drag');
+        CE_ORDER=[...body.querySelectorAll('.ce-row')].map(r=>+r.dataset.ci); renderCollabEditor(); };
+      window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); window.addEventListener('pointercancel',up);
+    });
+  });
+}
+// Applique un nouvel ordre à toute l'équipe : fiches, horaires des 53 semaines, historiques et archives
+function applyCollOrder(perm){
+  if(!Array.isArray(perm) || perm.length!==COLLS.length || perm.every((v,i)=>v===i)) return false;
+  const P=a=>perm.map(i=>a[i]);
+  const old=COLLS.slice(); COLLS.splice(0,COLLS.length,...P(old));
+  const permSlots=(wk)=>{ (wk.jours||[]).forEach((j,ji)=>{ const src=j.collaborateurs||[]; j.collaborateurs=perm.map(i=>src[i]||mkSlot(ji)); });
+    if(Array.isArray(wk.collabSnapshot)){ const sn=wk.collabSnapshot; wk.collabSnapshot=perm.map(i=>sn[i]||{nom:old[i].nom,base:old[i].base,color:old[i].color}); } };
+  for(let s=1;s<=53;s++) if(DATA[s]) permSlots(DATA[s]);
+  const _cur=new Set(Object.keys(DATA).map(s=>`${DATA_YEARS[s]}-${s}`));
+  Object.entries(ARCHIVE).forEach(([k,wk])=>{ if(!_cur.has(k) && wk && (wk.jours||[]).every(j=>(j.collaborateurs||[]).length===perm.length)) permSlots(wk); });
+  SEL_CI=null;
+  return true;
 }
 function addCollab(){
   // Prendre la prochaine couleur disponible dans PCOLS
@@ -6050,6 +6254,7 @@ function addCollab(){
   for(let s=1;s<=53;s++){
     DATA[s].jours.forEach((j,ji)=>j.collaborateurs.push(mkSlot(ji)));
   }
+  if(CE_ORDER) CE_ORDER.push(COLLS.length-1);
   renderCollabEditor();
 }
 function deleteCollab(ci){
@@ -6075,6 +6280,7 @@ function confirmDeleteCollab(ci){
   if(COLLS.length<=1){ renderCollabEditor(); return; }
   const nom=COLLS[ci].nom;
   COLLS.splice(ci,1);
+  if(CE_ORDER) CE_ORDER=CE_ORDER.filter(x=>x!==ci).map(x=>x>ci?x-1:x);
   for(let s=1;s<=53;s++){
     DATA[s].jours.forEach(j=>j.collaborateurs.splice(ci,1));
     if(Array.isArray(DATA[s].collabSnapshot)) DATA[s].collabSnapshot.splice(ci,1);
@@ -6103,6 +6309,7 @@ function saveCollabEditor(){
   for(let ci=0;ci<COLLS.length;ci++){
     if(!COLLS[ci].nom.trim()){toast('Tous les noms doivent être remplis','var(--pa-red)');return;}
   }
+  const _moved=applyCollOrder(CE_ORDER); CE_ORDER=null;
   // ── Snapshot : on enregistre les noms/couleurs/bases pour S=cW → S53
   // Les semaines passées (S1 → cW-1) conservent leur snapshot précédent
   const _wl=getWeekList(); const _from=Math.max(0,_wl.indexOf(cW));
@@ -6114,7 +6321,7 @@ function saveCollabEditor(){
   document.getElementById('dlgCollab').classList.remove('open');
   render();
   undoReset();
-  toast('✓ Équipe mise à jour à partir de S'+cW);
+  toast(_moved?'✓ Équipe et ordre mis à jour':'✓ Équipe mise à jour à partir de S'+cW);
 }
 
 // Retourne les infos collaborateurs pour une semaine donnée.
@@ -7088,7 +7295,7 @@ function renderMonthlyContract(){
     let h=0, cont=0, abs=0;
     planned.forEach(w=>{
       h+=weekHoursOf(DATA[w],ci);
-      const base=(getCollsForWeek(w)[ci]||c).base||0;
+      const base=baseEff(ci,w,getCollsForWeek(w)[ci]||c);
       cont+=base;
       DATA[w].jours.forEach(j=>{ const s=j.collaborateurs[ci]; if(s&&(s.statut==='CP'||s.statut==='MAL')) abs++; });
     });
@@ -7549,13 +7756,13 @@ function optimizeWeek(w, opts={}){
     for(let j=0;j<7;j++){
       const s=src.jours[j].collaborateurs[ci];
       if(s.statut==='CP'||s.statut==='MAL'){ lock[ci][j]='abs'; abs++; }
-      else if(dispoOf(ci,j).t==='off') lock[ci][j]='off';          // indisponible ce jour-là
+      else if(dispoOf(ci,j).t==='off' || !collOnDay(ci,w,j)) lock[ci][j]='off';          // indisponible ce jour-là (ou hors contrat)
       else if(opts.keepRest && s.statut==='R' && !Hs[j].closed) lock[ci][j]='rest';
       else lock[ci][j]=null;
       npFix[ci][j]=(s.statut==='work'&&Array.isArray(s.np))?JSON.parse(JSON.stringify(s.np)):[];
     }
-    const base=+(WC[ci].base)||0;
-    target[ci]=Math.max(0,base-abs*base/5);
+    const base=baseEff(ci,w,WC[ci]);
+    target[ci]=Math.max(0,base-abs*(+(WC[ci].base)||0)/5);
     if(opts.keepHours) target[ci]=Math.round(weekHoursOf(src,ci)*4)/4;   // volume d'heures prévu (écarts au contrat voulus)
     const avail=[0,1,2,3,4,5,6].filter(j=>!lock[ci][j] && (!Hs[j].closed || npFix[ci][j].length));
     nDays[ci]=target[ci]<=0?0:Math.min(avail.length,6,Math.max(1,Math.ceil(target[ci]/8-0.01)));
