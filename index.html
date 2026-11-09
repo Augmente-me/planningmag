@@ -1828,6 +1828,151 @@ html.side-on .labor-banner{display:none}
   .fused-table .gantt-handle::after{height:8px;background:rgba(255,255,255,.95)}
   .fused-table .gantt-pausebar .gantt-handle::after{background:var(--pa-text2)}
 }
+
+/* ══════ LISIBILITÉ S45 : la couleur ne sert qu'à ce qui demande une action ══════ */
+:root{--wb-neutral:color-mix(in srgb,var(--pa-text) 38%,var(--pa-surface))}
+.wb,.wtodo,.week-table,.fused-table,.cmd-sum,.dh2{font-variant-numeric:tabular-nums}
+/* 1. ligne semaine */
+.wb-pctx{font-size:12.5px;font-weight:600;white-space:nowrap}
+/* 2. À traiter cette semaine */
+.wtodo{background:var(--pa-surface);border:1px solid var(--pa-border);border-radius:10px;padding:10px 14px;margin:0 0 12px;display:flex;flex-direction:column;gap:5px}
+.wtodo-h{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--pa-muted)}
+.wtodo.ok .wtodo-h{color:var(--ok);font-weight:600}
+.wtodo-i{display:flex;align-items:center;gap:10px;font-size:13.5px;min-width:0}
+.wtodo-i>i{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.wtodo-i>i.b{background:var(--bad)} .wtodo-i>i.w{background:var(--warn)} .wtodo-i>i.i{background:var(--pa-muted2)}
+.wtodo-t{min-width:0;flex:1} .wtodo-t b{font-weight:600;color:var(--pa-text)} .wtodo-t em{font-style:normal;color:var(--pa-muted)}
+.wtodo-a{margin-left:auto;flex-shrink:0;font:inherit;font-size:12.5px;font-weight:600;color:var(--ac-tx);background:none;border:none;padding:3px 6px;border-radius:6px;cursor:pointer;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){ .wtodo-a:hover{background:var(--ac-lt)} }
+.wtodo .wb-opt{margin:0}
+@media (max-width:640px){ .wtodo-i{flex-wrap:wrap;align-items:flex-start} .wtodo-i>i{margin-top:6px} .wtodo-t{flex:1 1 calc(100% - 20px)} .wtodo-a{flex-basis:100%;text-align:left;margin-left:18px;padding:0 0 2px} }
+/* 3. onglets jours */
+.wb-r4{display:flex!important;flex-wrap:wrap;align-items:center;gap:3px 6px}
+.wb-gap{font-size:12px;font-weight:600;padding:0 7px;border-radius:999px;white-space:nowrap;line-height:18px}
+.wb-gap.w{background:var(--warn-bg);color:var(--warn)} .wb-gap.b{background:var(--bad-bg);color:var(--bad)} .wb-gap.n{color:var(--pa-muted2);padding:0;font-weight:500}
+.wb-days{position:relative}
+.wb-ind{position:absolute;left:0;bottom:0;height:3px;background:var(--ac);border-radius:2px 2px 0 0;pointer-events:none;width:0;will-change:transform}
+.wb-days.has-ind .wb-card.sel{border-bottom-color:transparent!important}
+/* sticky : plus rien ne transparaît au-dessus de la semaine */
+.wb{background:var(--pa-bg,#f4f4f4)!important}
+.wb::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px;background:inherit;pointer-events:none}
+/* 4-5-6. tableau de la semaine */
+.week-table th.day-th{font-weight:500;color:var(--pa-muted)} .week-table th.day-th .wk-dn{color:var(--pa-muted2);font-weight:400}
+.week-table th.wk-cur,.week-table td.wk-cur{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+.wk-who{display:flex;align-items:center;gap:9px}
+.wk-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#fff;flex-shrink:0}
+.wk-nm{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pa-text)}
+.wk-bs{font-size:12px;color:var(--pa-muted)}
+.week-table .wc-t{font-size:13px;font-weight:600;color:var(--pa-text);white-space:nowrap}
+.week-table .wc-h{font-size:12px;font-weight:400;color:var(--pa-muted)}
+.wk-off{font-size:12px;color:var(--pa-muted2)}
+.wk-st{font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px}
+.wk-st.cp{background:var(--warn-bg);color:var(--warn)} .wk-st.mal{background:var(--bad-bg);color:var(--bad)}
+.wk-tot{font-weight:700;color:var(--pa-text)}
+.wk-pr{font-size:12px;font-weight:500;opacity:.75}
+.week-table tr.wk-grp{cursor:pointer} .week-table tr.wk-grp td{background:var(--pa-surface2,#f5f5f5);font-size:12.5px;color:var(--pa-text2);text-align:left}
+.week-table tr.wk-grp td:last-child{text-align:center}
+.week-table tr.wk-grp b{font-weight:600;color:var(--pa-text)}
+.wk-car{display:inline-block;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)} tr.wk-grp.open .wk-car{transform:rotate(90deg)}
+.week-table tr.wk-empty td{opacity:.75}
+/* 7. en-tête du jour : sur ordinateur, les chiffres sont déjà sur l'onglet du jour */
+.dh2-cov{font-size:13px;font-weight:600;color:var(--warn);white-space:nowrap}
+.dh2-cov.ok{color:var(--ok);font-weight:500}
+.dh2-sum{display:none}
+@media (min-width:861px){ .dh2-kpis{display:none!important} .dh2-sum{display:inline} .dh2-cov{order:1} .dh2-note{order:2!important} }
+/* 8. plages : 3 visibles, « +N » pour les autres, sans barre de défilement */
+.dh2-chips{flex-wrap:wrap!important;overflow:visible!important;row-gap:5px}
+.dh2-chips:not(.all) .tpl-chip.tpl-more{display:none}
+.tpl-plus{font:inherit;font-size:12px;font-weight:600;color:var(--ac-tx);background:none;border:none;padding:3px 6px;cursor:pointer;white-space:nowrap}
+.tpl-plus .p2{display:none} .dh2-chips.all .tpl-plus .p1{display:none} .dh2-chips.all .tpl-plus .p2{display:inline}
+.dh2-chips .tpl-chip{position:relative}
+@media (hover:hover) and (pointer:fine){
+  .dh2-chips .tpl-chip[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%) translateY(2px);background:var(--pa-text);color:var(--pa-surface);font-size:12px;font-weight:500;padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;z-index:30;
+    transition:opacity 125ms ease-out 400ms,transform 125ms ease-out 400ms}
+  .dh2-chips .tpl-chip[data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+  .dh2-chips.tipwarm .tpl-chip[data-tip]::after{transition-duration:0ms;transition-delay:0ms}
+}
+@media (max-width:860px){ .dh2-chips{flex-basis:100%} }
+/* 10. colonne Actions : remplacée par des boutons au survol de l'horaire (souris) */
+.hor-act{display:none}
+.t-leg2{display:none}
+@media (hover:hover) and (pointer:fine) and (min-width:769px){
+  .fused-table thead th:nth-child(6),.fused-table td.c-act,.fused-table td.t-leg{display:none}
+  .t-leg2{display:block;font-size:11.5px;font-weight:400;color:var(--pa-muted);margin-top:1px}
+  .fused-table td.c-hor{position:relative}
+  .hor-act{display:flex;gap:4px;position:absolute;right:6px;top:50%;transform:translateY(-50%);opacity:0;transition:opacity 120ms ease}
+  .fused-table tr:hover .hor-act,.hor-act:focus-within{opacity:1}
+  .hor-act button{width:24px;height:22px;border-radius:6px;border:1px solid var(--pa-border2);background:var(--pa-surface);color:var(--pa-muted);font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;padding:0}
+  .hor-act button.d{color:var(--bad)}
+}
+/* hiérarchie : 3 niveaux de graisse */
+.emp-nm{font-weight:600!important} .emp-tp{font-weight:400}
+.fused-table td.c-heb{font-weight:650!important}
+.cv-lbl b{font-weight:600}
+/* retour au clic */
+.cmd-btn:active,.tool-btn:active,.wb-opt:active,.wtodo-a:active,.tpl-plus:active,.hor-act button:active,.cmd-nav:active,.cmd-week:active{transform:scale(.97)}
+@media (prefers-reduced-motion:reduce){ .wb-ind{transition:none!important} .wk-car{transition:none} }
+
+/* ══════ Barre des jours A+ : tuiles en verre, anneaux aux couleurs adoucies ══════ */
+:root{--wr-ok:#3f7d5d;--wr-warn:#94621f;--wr-bad:#a8463f;--wr-neu:var(--pa-muted)}
+.wb{background:radial-gradient(55% 140% at 12% 0%,rgba(var(--ac-rgb),.07),transparent 65%),radial-gradient(45% 140% at 88% 100%,rgba(110,130,190,.07),transparent 65%),var(--pa-bg,#f4f4f6)!important}
+.wb-days.wb-glass{gap:10px!important;background:transparent!important;border:none!important;border-radius:0!important;padding:3px 2px 8px!important;overflow-y:visible!important}
+.wb-glass .wb-ind{display:none}
+.wb-glass .wb-card{border:1px solid rgba(255,255,255,.75)!important;border-radius:18px!important;padding:11px 12px 10px!important;
+  background:rgba(255,255,255,.58)!important;-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(30,20,40,.05),0 8px 22px rgba(30,20,40,.06)!important;
+  display:flex;flex-direction:column;gap:6px;transition:box-shadow 160ms ease,background-color 160ms ease}
+@media (hover:hover) and (pointer:fine){ .wb-glass .wb-card:not(.closed):hover{background:rgba(255,255,255,.72)!important} }
+.wb-glass .wb-card:active{transform:scale(.985)}
+.wb-glass .wb-card.sel{background:rgba(255,255,255,.82)!important;box-shadow:0 0 0 2px var(--ac),inset 0 1px 0 rgba(255,255,255,.9),0 10px 26px rgba(30,20,40,.09)!important}
+.wb-glass .wb-card.closed{background:rgba(255,255,255,.28)!important;box-shadow:none!important;border-style:dashed!important;border-color:var(--pa-border2)!important}
+.wb-glass .wb-r1{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.wb-glass .wb-day{font-weight:650}
+.wb-glass .wb-card.sel .wb-day{color:var(--ac-tx)}
+.wr-row{display:flex;justify-content:space-around;gap:6px}
+.wr{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+.wr svg{display:block;overflow:visible}
+.wr-tr{stroke:rgba(120,110,130,.14)}
+.wr-v{font-weight:700;font-size:12.5px;fill:var(--pa-text);letter-spacing:-.01em}
+.wr-arc{transition:stroke-dashoffset 600ms cubic-bezier(0.23,1,0.32,1)}
+.wr-l{font-size:11.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.wr-ok{color:var(--wr-ok)} .wr-warn{color:var(--wr-warn)} .wr-bad{color:var(--wr-bad)} .wr-neu{color:var(--wr-neu)}
+.wr-pct{font-size:12px;font-weight:600;white-space:nowrap}
+.wb-glass .wb-r4{display:flex!important;flex-wrap:wrap;gap:3px 6px;align-items:center;justify-content:center;min-height:18px}
+.wb-glass .wb-gap.w{background:rgba(201,143,62,.14);color:var(--wr-warn)} .wb-glass .wb-gap.b{background:rgba(192,99,91,.14);color:var(--wr-bad)}
+.wb-r5{font-size:12px;color:var(--pa-muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-glass .wb-r2{min-height:56px;display:flex;align-items:center;justify-content:center}
+.wb-glass .wb-h{color:var(--pa-muted2)}
+@media (max-width:1180px){ .wb-days.wb-glass{grid-template-columns:repeat(7,minmax(150px,1fr))!important} }
+@media (max-width:860px){ .wb-days.wb-glass{grid-template-columns:repeat(7,minmax(158px,1fr))!important} }
+@media (prefers-reduced-motion:reduce){ .wr-arc{transition:none} .wb-glass .wb-card:active{transform:none} }
+
+/* ══════ TÉLÉPHONE : barre des jours et lignes collaborateurs compactes ══════ */
+@media (max-width:768px){
+  /* tuiles des jours : 3 visibles au lieu de 2,5, environ 35 % moins hautes */
+  .wb-days.wb-glass{grid-template-columns:repeat(7,112px)!important;gap:8px!important;padding:2px 2px 6px!important;scroll-padding-inline:8px}
+  .wb-glass .wb-card{padding:8px 8px 7px!important;border-radius:14px!important;gap:4px;min-width:0}
+  .wb-glass .wb-r1{font-size:12px} .wb-glass .wb-day{font-size:13px} .wb-glass .wb-ca{font-size:12px}
+  .wr-row{justify-content:space-between;gap:2px}
+  .wr svg{width:44px;height:44px}
+  .wr-l{display:none}
+  .wb-glass .wb-r2{min-height:44px}
+  .wb-glass .wb-r4{min-height:0;gap:2px 4px}
+  .wb-glass .wb-gap{font-size:12px;padding:0 6px}
+  .wb-r5{display:none}
+  .wb-glass .wr-pct{font-size:12px}
+  /* lignes collaborateurs : 3 lignes au lieu de 4, libellés retirés */
+  .fused-table tr:not(.cover-tr):not(.total-row):not(.sel-detail){grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"emp heb ecart" "hor hor act" "bar bar bar";gap:4px 10px;padding:8px 12px}
+  .fused-table td.c-hor::before,.fused-table td.c-heb::before,.fused-table td.c-ecart::before{display:none!important}
+  .fused-table td.c-heb,.fused-table td.c-ecart{align-self:center;font-size:14px}
+  .fused-table td.c-hor{align-self:center;display:flex!important;flex-wrap:wrap;align-items:baseline;gap:0 8px}
+  .fused-table td.c-hor .hor-act{display:none!important}
+  .fused-table td.c-act{align-self:center}
+  .fused-table td.c-act button{width:34px!important;height:28px!important;font-size:13px!important}
+  .fused-table td.c-bar .gantt-grid{height:24px!important}
+  .fused-table .emp-av{width:30px!important;height:30px!important;font-size:12px!important}
+  .fused-table .emp-tp{font-size:12px}
+}
 </style>
 <body>
 
@@ -4756,16 +4901,23 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     const r = pb>0 && c.pH>0 && obj>0 ? c.prod/pb : null;
     const under = r!=null && r<1;                                   // sans tolérance : dès le premier euro
     const col = r==null ? 'var(--pa-muted2)' : under ? 'var(--warn)' : 'var(--ok)';
+    const barCol = under ? 'var(--warn)' : 'var(--wb-neutral)';
+    const gap = ideal!=null && !closed && obj>0 ? diff : null;
+    const gapChip = gap==null ? '' : gap>=1 ? `<span class="wb-gap w">+${f1(gap)} h</span>` : gap<=-1 ? `<span class="wb-gap b">manque ${f1(-gap)} h</span>` : (Math.abs(gap)<0.05?'':`<span class="wb-gap n">${(gap>0?'+':'−')+f1(Math.abs(gap))+' h'}</span>`);
     const tag = closed ? 'Fermé' : r==null ? '' : under ? 'Sous l’objectif' : 'Objectif tenu';
     const pct = r==null ? '' : (r>=1?'+':'−')+Math.abs(Math.round((r-1)*100))+' %';
     const ecart = ideal!=null && !closed ? (Math.abs(diff)<0.05?'= idéal':(diff>0?'+':'−')+f1(Math.abs(diff))+' h') : '';
     const tip=`${JOURS[j]} — ${tag||'—'}${obj>0?` · CA ${eur(obj)}`:''}${r!=null?` · productivité ${Math.round(c.prod)} €/h pour un objectif de ${pb} (${pct})`:''}${ideal!=null&&!closed?` · idéal ${f1(ideal)} h selon le CA (${diff>0?'heures en trop':diff<0?'heures manquantes':'équilibré'})`:''}`;
-    return `<button type="button" class="wb-card${sel?' sel':''}${closed?' closed':''}${under?' under':''}" onclick="setDay(${j})" style="--pc:${col}" title="${esc(tip)}">
+    const _anim=window._wrWeek!==sem && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hKey = gap==null ? 'neu' : gap>=1 ? 'warn' : gap<=-1 ? 'bad' : 'neu';
+    const hFrac = ideal>0 ? c.tH/ideal : (c.tH>0?1:0);
+    const pKey = r==null ? 'neu' : under ? 'warn' : 'ok';
+    const rings = closed ? '' : `<span class="wr-row">${wbRing(c.tH>0?f1(c.tH):'0',hFrac,hKey,'heures',`${f1(c.tH)} heures pour ${ideal!=null?f1(ideal):'—'} idéales`,_anim)}${wbRing(r!=null?Math.round(c.prod):'—',r||0,pKey,'€ / h',`${r!=null?Math.round(c.prod):'—'} euros de l'heure pour un objectif de ${pb||'—'}`,_anim)}</span>`;
+    return `<button type="button" class="wb-card${sel?' sel':''}${closed?' closed':''}${under?' under':''}" onclick="setDay(${j})" title="${esc(tip)}">
       <span class="wb-r1"><span class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note">📝</span>':''}</span><span class="wb-ca">${closed?'fermé':obj>0?eur(obj):''}</span></span>
-      <span class="wb-r2"><span class="wb-h">${closed&&c.tH<=0?'—':f1(c.tH)+'&nbsp;h'}</span>${under?'<span class="wb-flag">sous l’objectif</span>':''}</span>
-      ${closed?'':`<span class="wb-pvl"><b class="wb-pv" style="color:${col}">${r!=null?Math.round(c.prod)+' €/h':'—'}</b><span>${pct}</span></span>
-      <span class="wb-bul" aria-hidden="true">${r!=null?`<i style="width:${Math.min(100,c.prod/_pmax*100).toFixed(1)}%;background:${col}"></i><s style="left:${(pb/_pmax*100).toFixed(1)}%"></s>`:''}</span>
-      <span class="wb-r4">idéal ${ideal!=null?f1(ideal)+'&nbsp;h':'—'}${ecart?' · '+ecart:''}${c.npH>0?` · dont ${f1(c.npH)}&nbsp;h non prod.`:''}</span>`}
+      ${closed?`<span class="wb-r2"><span class="wb-h">${c.tH<=0?'—':f1(c.tH)+'&nbsp;h'}</span></span>`:rings}
+      ${closed?'':`<span class="wb-r4">${gapChip}${r!=null?`<span class="wr-pct wr-${pKey}">${under?'':'✓ '}${pct}${under?' sous obj.':''}</span>`:''}</span>
+      <span class="wb-r5">idéal ${ideal!=null?f1(ideal)+'&nbsp;h':'—'}${c.npH>0?` · ${f1(c.npH)}&nbsp;h non prod.`:''}</span>`}
     </button>`;
   }).join('');
   // Rééquilibrage suggéré
@@ -4778,31 +4930,44 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     : `${wr>1?'+':'−'}${Math.round(Math.abs(wr-1)*100)} % ${wr>1?'au-dessus de':'sous'} l’objectif`;
   const lowDays = pb>0 ? days.filter(d=>!d.closed&&d.c.pH>0&&d.obj>0&&d.c.prod<pb) : [];
   const andList=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' et '+a[a.length-1];
-  const rebal = objTot<=0 ? `<div class="wb-reb wb-it muted">Saisissez le budget CA par jour pour voir la répartition idéale.</div>`
-    : `<div class="wb-reb wb-it ${lowDays.length||over.length||under.length?'act':'ok'}" title="Productivité par jour face à l'objectif · heures réparties selon le budget CA de chaque jour">
-        ${lowDays.length?`<span><b>${andList(lowDays.map(d=>JOURS[d.j]))} ${lowDays.length>1?'sont':'est'} sous l’objectif</b> (${andList(lowDays.map(d=>Math.round(d.c.prod)))} €/h pour ${pb}).</span>`:(pb>0?'<span><b>✓ Tous les jours atteignent l’objectif.</b></span>':'')}
-        ${over.length||under.length?`<span>Rééquilibrer&nbsp;: ${over.length?`retirer ${lst(over)} h`:''}${over.length&&under.length?', ':''}${under.length?`ajouter ${lst(under)} h`:''}.</span>`:'<span>Heures bien réparties selon le CA.</span>'}
-      </div>`;
+  // ── À traiter cette semaine : les vrais problèmes, chacun avec son action ──
+  const TW=[];
+  const _JL=j=>JOURS[j].toLowerCase(), _cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+  const _empty=[]; try{ getCollsForWeek(sem).forEach((c,ci)=>{ if(!(+c.base>0) || !collInWeek(ci,sem)) return; let h=0, st=false;
+      for(let j=0;j<7;j++){ const sl=DATA[sem].jours[j].collaborateurs[ci]; h+=calcH(sl); if(sl&&(sl.statut==='CP'||sl.statut==='MAL')) st=true; }
+      if(h<=0 && !st) _empty.push({c,b:baseEff(ci,sem,c)}); }); }catch(e){}
+  if(_empty.length) TW.push({sev:'b', t:`${_empty.length} collaborateur${_empty.length>1?'s':''} sans planning`,
+      s:`${_empty.map(x=>esc(x.c.nom)).join(', ')} · −${f1(_empty.reduce((a,x)=>a+x.b,0))} h sur contrat`, a:'Planifier ou dater le contrat', fn:'openCollabEditor()'});
+  if(objTot<=0) TW.push({sev:'i', t:'Budget CA non saisi', s:'saisissez le CA par jour pour voir la répartition idéale'});
+  if(under.length){ const tot=under.reduce((a,d)=>a-d.diff,0);
+    TW.push({sev:'w', t: under.length===1?`${_cap(JOURS[under[0].j])} manque ${f1(-under[0].diff)} h`:`${_cap(andList(under.map(d=>_JL(d.j))))} : il manque ${f1(tot)} h`,
+      s: under.length===1?`pour le CA prévu (${eur(under[0].obj)})`:under.map(d=>`${JCOURT[d.j]} ${f1(-d.diff)}`).join(' · '), a:'Ajouter des heures', fn:'openOptimizer()'}); }
+  if(over.length){ const tot=over.reduce((a,d)=>a+d.diff,0);
+    TW.push({sev:'w', t:`${_cap(andList(over.map(d=>_JL(d.j))))} : +${f1(tot)} h en trop`, s: over.map(d=>`${JCOURT[d.j]} ${f1(d.diff)}`).join(' · '), a:'Rééquilibrer', fn:'openOptimizer()'}); }
+  if(lowDays.length) TW.push({sev:'w', t:`${_cap(andList(lowDays.map(d=>_JL(d.j))))} sous l’objectif de productivité`, s:`${andList(lowDays.map(d=>Math.round(d.c.prod)))} €/h pour ${pb}`});
+  const _ord={b:0,w:1,i:2}; TW.sort((x,y)=>_ord[x.sev]-_ord[y.sev]);
+  const rebal = `<div class="wtodo${TW.length?'':' ok'}">
+      <div class="wtodo-h"><span>${TW.length?`À traiter cette semaine · ${TW.length} point${TW.length>1?'s':''}`:'✓ Rien à traiter cette semaine : objectif atteint et heures bien réparties'}</span>%%OPT%%</div>
+      ${TW.map(x=>`<div class="wtodo-i"><i class="${x.sev}"></i><span class="wtodo-t"><b>${x.t}</b> <em>${x.s||''}</em></span>${x.a?`<button type="button" class="wtodo-a" onclick="${x.fn}">${x.a}</button>`:''}</div>`).join('')}
+    </div>`;
   const optBtn = objTot>0&&(over.length||under.length) ? `<button type="button" class="wb-opt" onclick="openOptimizer()" title="Voir le planning optimisé (indicatif)">Optimiser</button>` : '';
   const week = (cls)=>`<div class="wb-line ${cls}">
         <span class="wb-wt wb-sum" title="${weekRangeLabel(PLANNING_YEAR,sem)}">${fullWeekLabel(sem)}</span>
         <span class="wb-it wb-sum"><span class="wb-kl">CA</span> <b>${objTot>0?eur(objTot):'—'}</b></span>
         <span class="wb-it wb-sum"><span class="wb-kl">Heures</span> <b>${f1(ws.tH)} h</b></span>
-        <span class="wb-it wb-sum" title="Productivité ${wr!=null?Math.round(ws.prodMoy):'—'} €/h ÷ objectif ${pb||'—'} €/h"><span class="wb-kl">Prod.</span> <b style="color:${wcol}">${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b> <span class="wb-kl">obj. ${pb||'—'}</span>${wr!=null?` <span class="wb-pct" style="--wc:${wcol}">${pctTxt}</span>`:''}</span>
+        <span class="wb-it wb-sum" title="Productivité ${wr!=null?Math.round(ws.prodMoy):'—'} €/h ÷ objectif ${pb||'—'} €/h"><span class="wb-kl">Prod.</span> <b${wr!=null&&wr<1?` style="color:${wcol}"`:''}>${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b> <span class="wb-kl">obj. ${pb||'—'}</span>${wr!=null?` <span class="wb-pctx" style="color:${wcol}">${wr>=1?'✓ ':''}${wr>=1?'+':'−'}${Math.round(Math.abs(wr-1)*100)} %</span>`:''}</span>
         ${(()=>{ const k=weekMonthKey(sem), b=+hBudgetOf()[k]||0; if(!b) return ''; const m=(monthHoursMap()[k]||{plan:0}); const s=envStatus(m.plan,b);
           return `<button type="button" class="wb-it wb-env" onclick="openEnvelope()" title="Enveloppe d'heures de ${monthLabel(k)} : ${Math.round(m.plan)} h planifiées pour ${b} h"><span class="wb-kl">Enveloppe ${MOIS_LONG[+k.split('-')[1]-1].slice(0,4)}.</span> <b style="color:${s.col}">${Math.round(m.plan)} / ${b} h</b></button>`; })()}
         ${(()=>{ const c=cpLevelForWeek(sem); if(!c) return ''; return `<span class="wb-it wb-cp ${c.n==='I'?'i':'d'}" title="Calendrier de pose de CP — ${c.n==='I'?'période interdite : forte activité commerciale, toutes les compétences sur le terrain':'période déconseillée : à valider par le Directeur Régional'}">${c.n==='I'?'⛔ CP interdits':'CP à valider DR'} · ${esc(c.evts.join(' · '))}${c.autres&&c.autres.length?` <span class="wb-cp-more">+ à valider : ${esc(c.autres.join(' · '))}</span>`:''}</span>`; })()}
-        ${rebal}
-        ${optBtn}
       </div>`;
   try{ const el=document.getElementById('cmdWeekSum'); if(el){
-    el.innerHTML=`<span>${weekRangeLabel(PLANNING_YEAR,sem)}</span><span>CA <b>${objTot>0?eur(objTot):'—'}</b></span><span><b>${f1(ws.tH)} h</b></span><span title="Productivité de la semaine${pb?' · objectif '+pb+' €/h':''}"><b style="color:${wcol}">${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b>${pctTxt?` <small style="color:${wcol}">${wr>1?'+':'−'}${Math.round(Math.abs(wr-1)*100)} %</small>`:''}</span>`;
+    el.innerHTML=`<span>${weekRangeLabel(PLANNING_YEAR,sem)}</span><span>CA <b>${objTot>0?eur(objTot):'—'}</b></span><span><b>${f1(ws.tH)} h</b></span><span title="Productivité de la semaine${pb?' · objectif '+pb+' €/h':''}"><b${wr!=null&&wr<1?` style="color:${wcol}"`:''}>${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b>${pctTxt?` <small style="color:${wcol}">${wr>=1?'✓ +':'−'}${Math.round(Math.abs(wr-1)*100)} %</small>`:''}</span>`;
     el.title=`${fullWeekLabel(sem)} · ${weekRangeLabel(PLANNING_YEAR,sem)}${pctTxt?' · '+pctTxt:''}`; setTimeout(()=>{ try{ fitCmdBar(); }catch(e){} },0); } }catch(e){}
   return `<div class="wb">
     ${laborBanner}
     ${week('wb-line-d')}
-    <div class="wb-days">${cards}</div>
-  </div>${week('wb-line-m')}`;
+    <div class="wb-days wb-glass">${WR_DEFS}${cards}<span class="wb-ind" aria-hidden="true"></span></div>
+  </div>${week('wb-line-m')}${rebal.replace('%%OPT%%',optBtn)}`;
 }
 
 // ══ PLANNING JOUR : COURBE DE PRÉSENCE, PANNEAU DU CRÉNEAU SÉLECTIONNÉ ══
@@ -4824,14 +4989,42 @@ function renderCovChart(countsAll, US){
   const maxN=Math.max(...counts);
   const nGap=dem.reduce((a,d,q)=>a+(d>0&&counts[q]<d?1:0),0);
   return `<tr class="cov-chart-tr"><td class="c-emp" colspan="2"><div class="cv-lbl"><b>Présence en surface</b>
-      <span class="cv-keys"><span><i class="cv-k a"></i>présents</span><span><i class="cv-k n"></i>besoin (min ${US.min}${getPeaks(cW,cD).length?' · pics':''})</span><span><i class="cv-k g"></i>sous-effectif</span></span>
-      <span class="${nGap?'cv-bad':'cv-ok'}">${nGap?`⚠ ${(nGap/4).toString().replace('.',',')} h sous le besoin`:'✓ besoin couvert'} · max ${maxN}</span></div></td>
+      <span class="cv-keys"><span><i class="cv-k a"></i>présents (max ${maxN})</span><span><i class="cv-k n"></i>besoin min ${US.min}${getPeaks(cW,cD).length?' · pics':''}</span>${nGap?'<span><i class="cv-k g"></i>manque</span>':''}</span></div></td>
     <td class="c-bar cv-cell"><div class="cv-wrap"><div class="cv-y">${labels.join('')}</div>
       <svg class="cv-svg" viewBox="0 0 ${n} ${H}" preserveAspectRatio="none" aria-label="Courbe de présence en surface">${grid}${gaps}
         <path d="${area}" class="cv-area"/><path d="${line}" class="cv-line" vector-effect="non-scaling-stroke"/><path d="${need}" class="cv-need" vector-effect="non-scaling-stroke"/></svg></div></td>
     <td colspan="3" class="cv-side"></td></tr>`;
 }
 function isPhone(){ return window.innerWidth<=768; }
+// ══ Barre des jours « A+ » : deux anneaux par jour, tuiles en verre ══
+function wbRing(val,frac,key,label,aria,anim){
+  const r=22,w=7.5,C=2*Math.PI*r, f=Math.max(0,Math.min(frac||0,1)), off=C*(1-f);
+  return `<span class="wr"><svg viewBox="0 0 56 56" width="56" height="56" role="img" aria-label="${aria}"><circle cx="28" cy="28" r="${r}" fill="none" class="wr-tr" stroke-width="${w}"/>${f>0.001?`<circle cx="28" cy="28" r="${r}" fill="none" stroke="url(#wrg-${key})" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(anim?C:off).toFixed(2)}" data-to="${off.toFixed(2)}" transform="rotate(-90 28 28)" class="wr-arc"/>`:''}<text x="28" y="32.5" text-anchor="middle" class="wr-v">${val}</text></svg><span class="wr-l wr-${key}">${label}</span></span>`;
+}
+const WR_DEFS=`<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <linearGradient id="wrg-ok" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8cc0a3"/><stop offset="1" stop-color="#5c9878"/></linearGradient>
+  <linearGradient id="wrg-warn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3b679"/><stop offset="1" stop-color="#c48a40"/></linearGradient>
+  <linearGradient id="wrg-bad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e09a92"/><stop offset="1" stop-color="#c0635b"/></linearGradient>
+  <linearGradient id="wrg-neu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c3bfc8"/><stop offset="1" stop-color="#97929d"/></linearGradient></defs></svg>`;
+function wbRingsAnim(){ const arcs=[...document.querySelectorAll('.wb-days .wr-arc')]; if(!arcs.length) return;
+  if(arcs.some(a=>Math.abs(parseFloat(a.getAttribute('stroke-dashoffset'))-parseFloat(a.dataset.to))>0.5))
+    requestAnimationFrame(()=>requestAnimationFrame(()=>arcs.forEach(a=>a.setAttribute('stroke-dashoffset',a.dataset.to)))); }
+// Trait sous le jour choisi : glisse depuis l'ancien jour (200 ms), instantané au clavier ou en changeant de semaine
+var _wbIndPrev=null;
+function placeWbInd(){
+  const wd=document.querySelector('.wb-days'), sc=wd&&wd.querySelector('.wb-card.sel'), ind=wd&&wd.querySelector('.wb-ind'); if(!ind||!sc){ _wbIndPrev=null; return; }
+  wd.classList.add('has-ind');
+  const to={x:sc.offsetLeft, w:sc.offsetWidth, wk:cW};
+  const anim=_wbIndPrev && _wbIndPrev.wk===cW && _wbIndPrev.x!==to.x && !window._kbNav && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  ind.style.transition='none';
+  const from=anim?_wbIndPrev:to;
+  ind.style.width=from.w+'px'; ind.style.transform=`translateX(${from.x}px)`;
+  if(anim){ void ind.offsetWidth; ind.style.transition='transform 200ms cubic-bezier(0.23,1,0.32,1), width 200ms cubic-bezier(0.23,1,0.32,1)'; ind.style.width=to.w+'px'; ind.style.transform=`translateX(${to.x}px)`; }
+  _wbIndPrev=to; window._kbNav=false;
+}
+window.addEventListener('resize',()=>{ _wbIndPrev=null; try{ placeWbInd(); }catch(e){} });
+// Infobulles des plages : délai sur la première, instantané sur les suivantes
+function chipTipWarm(el){ el.classList.add('tipwarm'); clearTimeout(el._tw); el._tw=setTimeout(()=>el.classList.remove('tipwarm'),500); }
 function selectSlot(ci){
   const closing=(SEL_CI===ci||ci==null);
   if(isPhone()){
@@ -5064,10 +5257,10 @@ function renderContent(){
   const calc=calcJ(cW,cD);
   const dayData=s.jours[cD];
   const pc=calc.prod>=s.prod_budget?'#fff':calc.prod>=s.prod_budget*.85?'#ffe8d4':'var(--bad-bg)';
-  const pcTxt=calc.prod>=s.prod_budget?'var(--ok)':calc.prod>=s.prod_budget*.85?'var(--warn)':'var(--bad)';
+  const pcTxt=calc.prod>=s.prod_budget?'var(--ok)':'var(--warn)';
 
   const chips=TPLS.length>0
-    ?TPLS.map((t,i)=>`<div class="tpl-chip" onclick="openAM('${t.id}')" title="${esc(t.name)} : ${t.debut||''}–${t.fin||''}${t.pause?' · pause '+String(t.pause).replace('.',',')+' h':''}"><div class="tpl-dot" style="background:${tplColor(t,i)}"></div>${t.name}${t.debut&&t.fin?`<span class="tpl-h">${t.debut}–${t.fin}</span>`:''}</div>`).join('')
+    ?TPLS.map((t,i)=>`<div class="tpl-chip${i>=3?' tpl-more':''}" onclick="openAM('${t.id}')" data-tip="${esc(t.name)} : ${t.debut||''}–${t.fin||''}${t.pause?' · pause '+String(t.pause).replace('.',',')+' h':''}" aria-label="${esc(t.name)} : ${t.debut||''}–${t.fin||''}${t.pause?' · pause '+String(t.pause).replace('.',',')+' h':''}"><div class="tpl-dot" style="background:${tplColor(t,i)}"></div>${t.name}${t.debut&&t.fin?`<span class="tpl-h">${t.debut}–${t.fin}</span>`:''}</div>`).join('')
     :'<span style="font-size:12px;color:var(--pa-muted);font-style:italic">Créez des plages via 🕒 Plages</span>';
 
   // ── GRILLE FUSIONNÉE : tableau + barres draggables (ex-Gantt) ──
@@ -5089,7 +5282,8 @@ function renderContent(){
   const _pb=s.prod_budget||0, _note=getNotes(cW)[cD]||'';
   let panel=`<div class="detail-card">
     <div class="dh2">
-      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}</span></div>
+      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}<span class="dh2-sum"> · ${_f1(calc.tH)} h${calc.tH>0?' · '+Math.round(calc.prod)+' €/h':''}</span></span></div>
+      %%DHCOV%%
       <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><input class="note-inp" value="${esc(_note)}" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></label>
       <div class="dh2-kpis">
         <div class="dh2-k"><small>Obj. CA</small><b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b></div>
@@ -5098,7 +5292,7 @@ function renderContent(){
       </div>
     </div>
     <div class="dh2-bar">
-      <span class="dh2-lbl">Plages</span><div class="dh2-chips">${chips}</div>
+      <span class="dh2-lbl">Plages</span><div class="dh2-chips${window._chipsAll?' all':''}" onmouseleave="chipTipWarm(this)">${chips}${TPLS.length>3?`<button type="button" class="tpl-plus" onclick="window._chipsAll=!window._chipsAll;this.parentNode.classList.toggle('all')" aria-label="Afficher toutes les plages"><span class="p1">+${TPLS.length-3} ▾</span><span class="p2">moins ▴</span></button>`:''}</div>
       <div class="dh2-tools">
         <button class="tool-btn ai" onclick="openAIAnalysis()" title="Analyse et optimisation de la semaine">Analyse IA</button>
         <button class="tool-btn" id="undoBtn" onclick="undo()" title="Annuler la dernière modification (Ctrl+Z)">↶<span class="tl"> Annuler</span></button>
@@ -5195,7 +5389,7 @@ function renderContent(){
         <div class="emp-av" style="background:${c.color}">${ini(c.nom)}</div>
         <div style="min-width:0"><div class="emp-nm" title="${esc(c.nom)}">${c.nom}</div><div class="emp-tp">${c.base}h/sem${collHasRange(c)||c.ctype&&c.ctype!=='CDI'?` <span class="emp-ct" title="Période de contrat">${esc(collContractTag(c))}</span>`:''} ${laborBadge}</div></div>
       </div></td>
-      <td class="c-hor" data-l="Horaire" onclick="openHM(${ci})" style="cursor:pointer" title="Modifier l'horaire">${dc}${pc2}</td>
+      <td class="c-hor" data-l="Horaire" onclick="openHM(${ci})" style="cursor:pointer" title="Modifier l'horaire">${dc}${pc2}<span class="hor-act"><button type="button" onclick="event.stopPropagation();quickRepos(${ci})" title="Mettre en repos" aria-label="Mettre en repos">R</button><button type="button" class="d" onclick="event.stopPropagation();clearDay(${ci})" title="Effacer les heures" aria-label="Effacer les heures">✕</button></span></td>
       <td class="c-bar" style="padding:4px 8px"><div class="gantt-grid" style="height:24px">${peakBands}${ticks}${bar}${pauseEl}${npBars(slot)}</div></td>
       <td class="c-heb" data-l="Semaine" style="text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-left:2px solid var(--pa-blue-mid)">${fT(wH)}</td>
       <td class="c-ecart" data-l="Écart contrat" style="text-align:center">${Math.abs(diff)<0.01?'<span class="ec-eq">=</span>':`<span class="ec-pill ${diff>0?'w':'b'}">${(diff>0?'+':'')+fT(diff)}</span>`}</td>
@@ -5243,7 +5437,7 @@ function renderContent(){
   const teamDiffStr=(teamDiff>0?'+':'')+fT(teamDiff);
 
   panel+=`<tr class="total-row">
-    <td class="c-emp t-lbl" style="color:var(--pa-text2);font-weight:600">Total du jour</td>
+    <td class="c-emp t-lbl" style="color:var(--pa-text2);font-weight:600">Total du jour<span class="t-leg2"><span style="color:var(--ok)">●</span>5+ <span style="color:var(--info)">●</span>3-4 <span style="color:var(--warn)">●</span>1-2 pers.</span></td>
     <td class="c-hor"><b class="hor-t">${fT(calc.tH)}</b></td>
     <td class="c-bar" style="padding:4px 8px"><div style="display:flex;height:18px;align-items:center;border-top:1px dashed var(--pa-border2)"><div style="position:relative;flex:1;height:14px;background:var(--pa-surface2);border:1px solid var(--pa-border);border-radius:6px;overflow:hidden">${nowLine}${countSegs}${countNums}</div></div></td>
     <td class="c-heb" data-l="Semaine équipe" style="text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-left:2px solid var(--pa-blue-mid)">${fT(teamWH)}</td>
@@ -5258,6 +5452,12 @@ function renderContent(){
   </div>`;
 
   panel=panel.replace('%%COVCHART%%', renderCovChart(counts, US));
+  panel=panel.replace('%%DHCOV%%', (()=>{ if(US.first<0) return '';
+    const gapQ=(US.dem||[]).reduce((a,d,q)=>a+(d>0&&counts[q]<d?1:0),0);
+    if(!gapQ) return `<span class="dh2-cov ok">✓ besoin couvert</span>`;
+    const hh=v=>{ const H=Math.floor(v+1e-6), M=Math.round((v-H)*60); return H+'h'+(M?String(M).padStart(2,'0'):''); };
+    const per=(US.runs||[]).slice(0,3).map(r=>`${hh(r.from)}–${hh(r.to)}`).join(', ');
+    return `<span class="dh2-cov" title="Présence sous le besoin minimum">⚠ ${String(gapQ/4).replace('.',',')} h sous le besoin${per?` (${per}${(US.runs||[]).length>3?'…':''})`:''}</span>`; })());
   const _side=renderDaySide(counts,US,calc,s);
   panel=panel.replace('%%SELDETAIL%%', `<tr class="sel-detail"><td colspan="6"><div class="ds-inline">${_side}</div></td></tr>`);
   const weekCtx=renderWeekContext(cW,cD);
@@ -5265,6 +5465,8 @@ function renderContent(){
   document.getElementById('content').innerHTML=weekCtx+`<div class="day-wrap${SEL_CI!=null?' has-sel':''}" id="dayWrap"><div class="day-main">${panel}</div><aside class="day-side" id="daySide" aria-label="Créneau sélectionné"><div class="ds-grab" aria-hidden="true"></div>${_side}</aside><div class="ds-backdrop" onclick="selectSlot(SEL_CI)"></div></div>`+weekPanel+renderMonthlyContract();
   initGanttDrag(); dayLayout(); dsSheetInit(); try{ gridVars(); }catch(e){}
   try{ const wd=document.querySelector('.wb-days'), sc=document.querySelector('.wb-card.sel'); if(wd&&sc&&wd.scrollWidth>wd.clientWidth+2){ const l=sc.offsetLeft-(wd.clientWidth-sc.offsetWidth)/2; wd.scrollLeft=Math.max(0,l); } }catch(e){}
+  try{ placeWbInd(); }catch(e){}
+  try{ wbRingsAnim(); window._wrWeek=cW; }catch(e){}
   updateUndoBtn();
   try{ rtLabel(document.getElementById('content')); }catch(e){}
 }
@@ -5292,81 +5494,67 @@ function renderWeekPanel(sem){
   // Totaux par jour
   const dayTotals = JOURS.map((_,ji)=>calcJ(sem,ji));
 
-  // En-têtes colonnes jours
-  let thead=`<thead><tr>
-    <th class="collab-th">Collaborateur</th>
-    ${JOURS.map((j,ji)=>{
-      const dt=dateOfDay(PLANNING_YEAR,sem,ji);
-      const isToday=dt&&dt.toDateString()===new Date().toDateString();
-      return`<th class="day-th${isToday?' active-day':''}">${JCOURT[ji]}<br><span style="font-weight:400;font-size:12px">${dt?dt.getDate()+'/'+(dt.getMonth()+1):''}</span></th>`;
-    }).join('')}
-    <th>Total</th><th>Base</th><th>Écart</th>
-  </tr></thead>`;
-
-  // Lignes collaborateurs
-  let tbody='<tbody>';
-  let dayTH=new Array(7).fill(0);
-  let totalH=0, totalBase=0;
-
+  // Heures courtes : « 9h », « 11h30 »
+  const _hm=v=>{ if(!v) return ''; const [H,M]=String(v).split(':'); return (+H)+'h'+(M&&M!=='00'?M:''); };
+  const _H7=storeHours();
+  // Préparation des lignes : actives d'abord, sans aucune heure (et sans CP ni maladie) regroupées en bas
+  const rows=[]; const dayTH=new Array(7).fill(0);
   WC.forEach((c,ci)=>{
     if(!collVisibleWeek(ci,sem)) return;
-    let rowH=0;
-    tbody+=`<tr><td class="collab-td">
-      <div style="display:flex;align-items:center;gap:7px">
-        <div style="width:22px;height:22px;border-radius:50%;background:${c.color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">${ini(c.nom)}</div>
-        <div style="min-width:0"><div style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.nom}</div><div style="font-size:12px;color:var(--pa-muted)">${c.base}h/sem</div></div>
-      </div>
-    </td>`;
-
-    JOURS.forEach((_,ji)=>{
-      const slot=DATA[sem].jours[ji].collaborateurs[ci];
-      const h=calcH(slot);
-      rowH+=h; dayTH[ji]+=h;
-      const isToday=dateOfDay(PLANNING_YEAR,sem,ji)?.toDateString()===new Date().toDateString();
-      const bg=isToday?'background:rgba(var(--ac-rgb),.04);':ji===cD?'background:rgba(var(--ac-rgb),.06);':'';
-
-      if(h<=0 && !collOnDay(ci,sem,ji)) tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2);font-size:12px">hors contrat</span></td>`;
-      else if(slot.statut==='R')   tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2);font-size:12px;font-style:italic">Repos</span></td>`;
-      else if(slot.statut==='CP')  tbody+=`<td style="${bg}"><span style="color:var(--pa-yellow);font-weight:700;font-size:12px">CP</span></td>`;
-      else if(slot.statut==='MAL') tbody+=`<td style="${bg}"><span style="color:var(--pa-red);font-weight:700;font-size:12px">MAL</span></td>`;
-      else if(h<=0) tbody+=`<td style="${bg}"><span style="color:var(--pa-muted2)">—</span></td>`;
-      else{
-        const barW=Math.min(h/10*100,100);
-        tbody+=`<td style="${bg}">
-          <div class="wc-t">${slot.debut}<span style="opacity:.5;font-weight:400;margin:0 1px">–</span>${slot.fin}</div>
-          <div class="wc-h">${fN1(h)}<span style="font-size:12px;font-weight:600;opacity:.6">h</span></div>
-          ${npHours(slot)>0?`<div class="wc-np" title="${npList(slot).map(n=>(NP_TYPES[n.t]?.lbl||n.t)+' '+n.d+'–'+n.f).join(', ')}">${npList(slot).map(n=>NP_TYPES[n.t]?.lbl||n.t).join(', ')}</div>`:''}
-          <div class="wc-bar" style="width:${barW}%"></div>
-        </td>`;
-      }
-    });
-
-    totalH+=rowH; totalBase+=c.base;
-    const diff=rowH-c.base;
-    const diffEl=diff===0?`<span style="color:var(--pa-green);font-size:12px">✓</span>`
-      :diff>0?`<span style="color:var(--pa-orange);font-size:12px;font-weight:700">+${fT(diff)}</span>`
-      :`<span style="color:var(--pa-red);font-size:12px;font-weight:700">${fT(diff)}</span>`;
-
-    tbody+=`<td style="font-weight:700;font-size:13px">${fT(rowH)}</td>`;
-    tbody+=`<td style="color:var(--pa-muted);font-size:12px">${c.base}h</td>`;
-    tbody+=`<td>${diffEl}</td></tr>`;
+    let rowH=0, st=false; const hs=[];
+    for(let ji=0;ji<7;ji++){ const sl=DATA[sem].jours[ji].collaborateurs[ci]; const h=calcH(sl); hs.push(h); rowH+=h; dayTH[ji]+=h; if(sl&&(sl.statut==='CP'||sl.statut==='MAL')) st=true; }
+    rows.push({c,ci,rowH,hs,empty:rowH<=0&&!st,bE:baseEff(ci,sem,c)});
   });
+  // Jours fermés sans aucune heure : colonne masquée
+  const showJ=JOURS.map((_,ji)=>!(_H7[ji].closed && dayTH[ji]<=0));
+  const nCols=showJ.filter(Boolean).length+3;
+  const pill=d=>Math.abs(d)<0.01?'<span class="ec-eq">=</span>':`<span class="ec-pill ${d>0?'w':'b'}">${(d>0?'+':'')+fT(d)}</span>`;
 
-  // Ligne totaux
-  const totalDiff=totalH-totalBase;
-  const totalDiffEl=totalDiff===0?'<span style="color:rgba(255,255,255,.8)">✓</span>'
-    :totalDiff>0?`<span>+${fT(totalDiff)}</span>`:`<span>${fT(totalDiff)}</span>`;
-
-  tbody+=`<tr class="total-row">
-    <td class="collab-td" style="padding-left:14px;font-size:12px">Total du jour</td>
-    ${dayTH.map((t,ji)=>{
-      const obj=calcJ(sem,ji);
-      const pr=obj.tH>0?obj.prod.toFixed(0)+'€/h':'—';
-      return`<td><div>${fT(t)}</div><div style="font-size:12px;opacity:.7">${pr}</div></td>`;
+  let thead=`<thead><tr>
+    <th class="collab-th">Collaborateur</th>
+    ${JOURS.map((j,ji)=>{ if(!showJ[ji]) return '';
+      const dt=dateOfDay(PLANNING_YEAR,sem,ji);
+      const isToday=dt&&dt.toDateString()===new Date().toDateString();
+      return`<th class="day-th${isToday?' active-day':''}${ji===cD?' wk-cur':''}">${JCOURT[ji]} <span class="wk-dn">${dt?dt.getDate()+'/'+(dt.getMonth()+1):''}</span></th>`;
     }).join('')}
+    <th>Total</th><th>Écart</th>
+  </tr></thead>`;
+
+  const rowHtml=r=>{ const {c,ci}=r;
+    let h=`<tr${r.empty?' class="wk-empty"':''}><td class="collab-td">
+      <div class="wk-who">
+        <div class="wk-av" style="background:${c.color}">${ini(c.nom)}</div>
+        <div style="min-width:0"><div class="wk-nm">${esc(c.nom)}</div><div class="wk-bs">${c.base} h${collHasRange(c)||c.ctype&&c.ctype!=='CDI'?' · '+esc(collContractTag(c)):''}</div></div>
+      </div></td>`;
+    JOURS.forEach((_,ji)=>{ if(!showJ[ji]) return;
+      const slot=DATA[sem].jours[ji].collaborateurs[ci], hh=r.hs[ji];
+      const cls=ji===cD?' class="wk-cur"':'';
+      if(hh<=0 && !collOnDay(ci,sem,ji)) h+=`<td${cls}><span class="wk-off">hors contrat</span></td>`;
+      else if(slot.statut==='R')   h+=`<td${cls}><span class="wk-off">repos</span></td>`;
+      else if(slot.statut==='CP')  h+=`<td${cls}><span class="wk-st cp">CP</span></td>`;
+      else if(slot.statut==='MAL') h+=`<td${cls}><span class="wk-st mal">Maladie</span></td>`;
+      else if(hh<=0) h+=`<td${cls}><span class="wk-off">—</span></td>`;
+      else h+=`<td${cls}><div class="wc-t">${_hm(slot.debut)} – ${_hm(slot.fin)}</div><div class="wc-h">${fN1(hh)} h</div>
+          ${npHours(slot)>0?`<div class="wc-np" title="${npList(slot).map(n=>(NP_TYPES[n.t]?.lbl||n.t)+' '+n.d+'–'+n.f).join(', ')}">${npList(slot).map(n=>NP_TYPES[n.t]?.lbl||n.t).join(', ')}</div>`:''}</td>`;
+    });
+    h+=`<td class="wk-tot">${fT(r.rowH)}</td><td>${pill(r.rowH-r.bE)}</td></tr>`;
+    return h; };
+
+  const act=rows.filter(r=>!r.empty), emp=rows.filter(r=>r.empty);
+  let tbody='<tbody>'+act.map(rowHtml).join('');
+  if(emp.length){
+    const eB=emp.reduce((a,r)=>a+r.bE,0);
+    tbody+=`<tr class="wk-grp${window._wkEmptyOpen?' open':''}" onclick="window._wkEmptyOpen=!window._wkEmptyOpen;this.classList.toggle('open');this.parentNode.querySelectorAll('tr.wk-empty').forEach(r=>r.hidden=!window._wkEmptyOpen)">
+      <td colspan="${nCols-1}"><span class="wk-car">▸</span> <b>${emp.length} sans planning cette semaine</b> : ${emp.map(r=>`${esc(r.c.nom)} (${r.c.base} h)`).join(', ')}</td><td>${pill(-eB)}</td></tr>`;
+    tbody+=emp.map(r=>rowHtml(r).replace('<tr class="wk-empty">',`<tr class="wk-empty"${window._wkEmptyOpen?'':' hidden'}>`)).join('');
+  }
+  const totalH=rows.reduce((a,r)=>a+r.rowH,0), totalBase=rows.reduce((a,r)=>a+r.bE,0);
+  tbody+=`<tr class="total-row">
+    <td class="collab-td" style="padding-left:14px">Total du jour</td>
+    ${dayTH.map((t_,ji)=>{ if(!showJ[ji]) return ''; const o=calcJ(sem,ji);
+      return`<td><div>${fT(t_)}</div><div class="wk-pr">${o.tH>0?Math.round(o.prod)+' €/h':'—'}</div></td>`; }).join('')}
     <td>${fT(totalH)}</td>
-    <td style="opacity:.7">${totalBase}h</td>
-    <td>${totalDiffEl}</td>
+    <td>${pill(totalH-totalBase)}</td>
   </tr></tbody>`;
 
   return`<div class="week-panel">${hdr}<div class="week-table-wrap"><table class="week-table">${thead}${tbody}</table></div></div>`;
@@ -6510,7 +6698,7 @@ function saveStoreEditor(){
 document.addEventListener('keydown',e=>{
   if(e.target.matches('input,select,textarea'))return;
   if(e.target.isContentEditable)return;
-  if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){ e.preventDefault(); setDay((cD+(e.key==='ArrowRight'?1:6))%7); return; }
+  if(e.shiftKey&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){ e.preventDefault(); window._kbNav=true; setDay((cD+(e.key==='ArrowRight'?1:6))%7); return; }
   if(e.key==='ArrowLeft'&&!e.altKey&&!e.ctrlKey&&!e.metaKey)changeWeek(-1);
   if(e.key==='ArrowRight'&&!e.altKey&&!e.ctrlKey&&!e.metaKey)changeWeek(1);
   if(e.key==='Escape'){closeHM();closeTM();closeAM();closeCollabEditor();closeStoreEditor();closeExportModal();closeSPConfig();closeGHConfig();closeUserManager();closeStoreSelector();}
