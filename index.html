@@ -2299,6 +2299,33 @@ html[data-mode="dark"] .wseg,html[data-mode="dark"] .wb-days.wb-pastel,html[data
 html[data-mode="dark"] .wseg,html[data-mode="dark"] .wb-days.wb-pastel{background:var(--pa-surface)!important;box-shadow:none!important}
 html[data-mode="dark"] .wb.wb-seg{background:transparent!important;border:0!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;transition-duration:1ms!important}}
+
+/* ═════ Ordinateur : place optimisée + notes qui s'adaptent ═════ */
+.wb-note .ico{width:14px;height:14px;color:var(--ac);vertical-align:-2px}
+.pv-note .ico{width:13px;height:13px;vertical-align:-2px}
+.dh2-note>span .ico{width:16px;height:16px;color:var(--ac);vertical-align:-3px}
+@media (min-width:769px){
+  .dh2{flex-wrap:wrap;row-gap:8px}
+  .dh2-title{flex:1 1 auto;min-width:0}
+  .dh2-title span{white-space:normal}
+  .dh2-title b{white-space:nowrap}
+  /* note vide : petite et sur la même ligne ; note écrite : toute la largeur, texte entier */
+  .dh2-note{order:9!important;flex:0 1 300px!important;min-width:200px!important}
+  .dh2-note.has,.dh2-note:focus-within{flex:1 1 100%!important}
+  .dh2-note textarea.note-inp{height:auto}
+  /* ligne semaine vide (chiffres déjà dans la barre du haut) : on ne garde pas l'espace */
+  html.cmdsum-on .wseg .wb-line-d:not(:has(.wb-it:not(.wb-sum))){display:none!important}
+  /* « Cliquez sur un nom » est passé dans l'en-tête de la présence */
+  .day-side .ds-card-empty{display:none!important}
+}
+/* « À traiter » de la semaine sur deux colonnes quand l'écran est large */
+@media (min-width:1600px){
+  .wseg .wtodo:not(.ok){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;row-gap:6px}
+  .wseg .wtodo-h{grid-column:1/-1}
+  .wseg .wtodo-i{align-items:flex-start}
+  .wseg .wtodo-i>i{margin-top:6px}
+}
+@media (min-width:1181px) and (max-width:1599px){ .day-wrap{grid-template-columns:minmax(0,1fr) 272px} }
 </style>
 <body>
 
@@ -5254,7 +5281,7 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     const hPill = gap==null ? '' : gap>=1 ? `<span class="tp warn">+${f1(gap)} h de trop</span>` : gap<=-1 ? `<span class="tp bad">manque ${f1(-gap)} h</span>` : `<span class="tp ok">≈ idéal</span>`;
     const pPill = r==null ? `<span class="tp n">${c.tH>0&&!(obj>0)?'productivité —':'—'}</span>` : `<span class="tp ${under?'bad':'ok'}">${Math.round(c.prod)} €/h · ${pct}</span>`;
     return `<button type="button" class="wb-card wt wtb${sel?' sel':''}${closed?' closed off':''}" onclick="setDay(${j})" style="--tint:var(--wtb-${stKey})" title="${esc(tip)}" aria-label="${esc(aria)}" aria-pressed="${sel}">
-      <span class="wt1"><b class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note" title="Note du jour">📝</span>':''}</b><span class="wb-ca">${caTxt}</span></span>
+      <span class="wt1"><b class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?` <span class="wb-note" title="${esc(note)}">${ico('note')}</span>`:''}</b><span class="wb-ca">${caTxt}</span></span>
       ${closed?'<span class="wt-off">—</span>':`<span class="wtb-n"><b>${f1(c.tH)}<small> h</small></b>${nAl?`<span class="wt-al">⚠ ${nAl}</span>`:''}</span>
       <span class="wtb-p">${hPill}</span><span class="wtb-p">${pPill}${c.npH>0?`<span class="wt-np" title="Heures non productives">${f1(c.npH)} h n.p.</span>`:''}</span>`}
     </button>`;
@@ -5791,7 +5818,7 @@ function renderContent(){
   JOURS.forEach((j,i)=>{
     const c=calcJ(cW,i);
     const _nt=getNotes(cW)[i];
-    pivot+=`<div class="pivot-item${i===cD?' active':''}" onclick="setDay(${i})"${_nt?` title="📝 ${esc(_nt)}"`:''}>${JCOURT[i]} ${dayNum(PLANNING_YEAR,cW,i)}${_nt?' <span class="pv-note">📝</span>':''}<span class="pivot-sub">${fT(c.tH)}</span></div>`;
+    pivot+=`<div class="pivot-item${i===cD?' active':''}" onclick="setDay(${i})"${_nt?` title="Note : ${esc(_nt)}"`:''}>${JCOURT[i]} ${dayNum(PLANNING_YEAR,cW,i)}${_nt?' <span class="pv-note">'+ico('note')+'</span>':''}<span class="pivot-sub">${fT(c.tH)}</span></div>`;
   });
   pivot+='</div>';
 
@@ -5825,7 +5852,7 @@ function renderContent(){
     <div class="dh2">
       <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}<span class="dh2-sum">${calc.obj>0?` · obj. CA <b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b>`:''}${(()=>{ try{ const ot=objSem(cW), wsT=calcS(cW).tH; return ot>0&&calc.obj>0?` · idéal ${_f1(wsT*calc.obj/ot)} h`:''; }catch(e){ return ''; } })()} · ${_f1(calc.tH)} h${calc.tH>0?' · '+Math.round(calc.prod)+' €/h':''}</span></span></div>
       %%DHCOV%%
-      <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><textarea class="note-inp" rows="1" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" oninput="noteFit(this)" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">${esc(_note)}</textarea></label>
+      <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12l-4 4H5z"/><path d="M15 20v-4h4M8 9h8M8 13h5"/></svg></span><textarea class="note-inp" rows="1" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" oninput="noteFit(this)" onfocus="setTimeout(()=>noteFit(this),0)" onblur="setTimeout(()=>noteFit(this),0)" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">${esc(_note)}</textarea></label>
       <div class="dh2-kpis">
         <div class="dh2-k"><small>Obj. CA</small><b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b></div>
         <div class="dh2-k"><small>Heures</small><b>${_f1(calc.tH)} h</b>${calc.npH>0?`<em>dont ${_f1(calc.npH)} h non prod.</em>`:''}</div>
@@ -5846,7 +5873,7 @@ function renderContent(){
         <th style="width:200px">Collaborateur</th>
         <th style="width:150px">Horaire</th>
         <th style="padding-bottom:0">
-          <div style="margin-bottom:3px">Présence <span style="font-weight:400;text-transform:none;color:var(--pa-muted2)">· glissez pour ajuster</span></div>
+          <div style="margin-bottom:3px">Présence <span style="font-weight:400;text-transform:none;color:var(--pa-muted2)">· glissez pour ajuster · cliquez un nom pour le modifier</span></div>
           <div style="display:flex;text-transform:none">${(()=>{let a='';for(let hh=VIEW_S;hh<VIEW_E;hh++){a+=`<span style="flex:1;font-size:11px;font-weight:600;color:var(--pa-muted2);border-left:1px solid var(--pa-border);padding-left:1px">${hh}h</span>`;}a+=`<span style="font-size:11px;font-weight:600;color:var(--pa-muted2);border-left:1px solid var(--pa-border);padding-left:1px">${VIEW_E}h</span>`;return a;})()}</div>
         </th>
         <th style="width:50px;text-align:center;border-left:2px solid var(--pa-blue-mid)">Semaine</th>
@@ -8000,6 +8027,7 @@ function applyTypeWeeks(){
 function getNotes(w){ const d=DATA[w]; return Array.isArray(d?.notes)?d.notes:new Array(7).fill(''); }
 // Note du jour : le champ s'agrandit pour afficher le texte en entier
 function noteFit(el){ if(!el) return; el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+window.addEventListener('resize',()=>{ try{ document.querySelectorAll('.dh2-note .note-inp').forEach(noteFit); }catch(e){} });
 function setDayNote(v){
   const d=DATA[cW]; if(!Array.isArray(d.notes)) d.notes=new Array(7).fill('');
   d.notes[cD]=String(v||'').trim();
