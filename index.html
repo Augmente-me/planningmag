@@ -1979,6 +1979,80 @@ html.side-on .labor-banner{display:none}
 .dh2-note>span{line-height:20px}
 .dh2-note textarea.note-inp{resize:none;overflow:hidden;font:inherit;font-size:13px;line-height:20px;min-height:20px;display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--pa-text);outline:none}
 @media (pointer:coarse){ .dh2-note textarea.note-inp{font-size:16px} }
+
+/* ══════ Les grandes tuiles défilent avec la page ; une barre compacte prend le relais en haut ══════ */
+.wb{position:relative!important;top:auto!important}
+.wb::before{display:none!important}
+.wbm-wrap{position:sticky;top:-16px;height:0;z-index:9;margin:0 -16px}
+.wbm{position:absolute;left:0;right:0;top:0;display:flex;gap:6px;align-items:center;padding:6px 14px;overflow-x:auto;scrollbar-width:none;
+  background:color-mix(in srgb,var(--pa-bg,#f4f4f6) 78%,transparent);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+  border-bottom:1px solid var(--pa-border);box-shadow:0 6px 16px rgba(30,20,40,.06);
+  opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 160ms cubic-bezier(0.23,1,0.32,1),transform 160ms cubic-bezier(0.23,1,0.32,1)}
+.wbm::-webkit-scrollbar{display:none}
+.wbm.on{opacity:1;transform:none;pointer-events:auto}
+.wbm-d{flex:1 0 auto;min-width:0;display:flex;align-items:baseline;gap:8px;padding:5px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.7);
+  background:rgba(255,255,255,.62);font:inherit;font-size:12px;color:var(--pa-muted);white-space:nowrap;cursor:pointer;font-variant-numeric:tabular-nums}
+.wbm-d b{font-size:12.5px;font-weight:650;color:var(--pa-text)}
+.wbm-d.sel{box-shadow:0 0 0 2px var(--ac);background:rgba(255,255,255,.9)} .wbm-d.sel b{color:var(--ac-tx)}
+.wbm-d.off{cursor:default;background:transparent;border-style:dashed;border-color:var(--pa-border2)}
+.wbm-d:active{transform:scale(.97)}
+.wbm-v{display:inline-flex;align-items:center;gap:4px;color:var(--pa-text2)}
+.wbm-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.wbm-g{font-weight:600}
+.wbm-ca{font-weight:500;color:var(--pa-muted);font-size:12px;margin-left:4px}
+.wbm-v small{font-size:11px;color:var(--pa-muted2);margin-left:1px}
+.wbm-d{flex:1 1 0!important;display:grid!important;grid-template-columns:auto auto;justify-content:center;gap:1px 8px!important;padding:4px 8px!important;overflow:hidden;line-height:1.25}
+.wbm-d b{grid-column:1/-1;text-align:center}
+.wbm-d.off{display:flex!important;flex-direction:column;align-items:center}
+@media (max-width:1400px){ .wbm-g{display:none} }
+@media (max-width:768px){ .wbm-d{flex:0 0 auto!important} }
+.wbm-al{flex:0 0 auto;font:inherit;font-size:12px;font-weight:700;color:var(--bad);background:var(--bad-bg);border:none;border-radius:999px;padding:4px 10px;cursor:pointer}
+@media (max-width:768px){ .wbm{padding:6px 10px} .wbm-d{flex:0 0 auto;padding:4px 8px;gap:6px} }
+@media (prefers-reduced-motion:reduce){ .wbm{transition:opacity 120ms linear;transform:none} }
+@media print{ .wbm-wrap{display:none} }
+
+/* ══════ Jours en intercalaires (A · Classeur) ══════ */
+:root{--wt-ok:#7fb497;--wt-warn:#d6a865;--wt-bad:#d38a82;--wt-neu:#c9c5cd}
+.wb.wb-has-tabs{margin-bottom:0!important;padding-bottom:0!important}
+.wb-has-tabs .wtodo{margin:2px 0 12px}
+.wb-days.wb-tabs{display:grid!important;grid-template-columns:repeat(7,minmax(128px,1fr))!important;gap:4px!important;align-items:end;
+  background:transparent!important;border:none!important;border-radius:0!important;padding:8px 6px 0!important;margin:0 0 -1px!important;
+  position:relative;z-index:3;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;border-bottom:1px solid var(--pa-border)!important}
+.wb-tabs .wb-ind{display:none}
+.wb-tabs .wt{position:relative;display:flex!important;flex-direction:column;gap:3px;text-align:left;min-width:0;
+  background:var(--pa-surface2,#efedf1)!important;border:1px solid var(--pa-border)!important;border-bottom:none!important;border-radius:12px 12px 0 0!important;
+  padding:9px 11px 8px!important;margin-top:8px;box-shadow:none!important;transition:background-color 150ms ease;-webkit-backdrop-filter:none;backdrop-filter:none}
+.wb-tabs .wt::before{content:"";position:absolute;left:10px;right:10px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:var(--st)}
+@media (hover:hover) and (pointer:fine){ .wb-tabs .wt:not(.sel):not(.off):hover{background:color-mix(in srgb,var(--pa-surface) 55%,var(--pa-surface2,#efedf1))!important} }
+.wb-tabs .wt.sel{background:var(--pa-surface)!important;margin-top:0;padding-top:13px!important;padding-bottom:11px!important;z-index:2;
+  box-shadow:0 -4px 12px rgba(30,20,40,.06)!important;border-color:var(--pa-border)!important}
+.wb-tabs .wt.sel::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--pa-surface)}
+.wb-tabs .wt.sel .wb-day{color:var(--ac-tx)}
+.wb-tabs .wt.off{background:transparent!important;border-style:dashed dashed none dashed!important;cursor:default}
+.dh2-sum b{font-size:inherit!important;font-weight:650!important;display:inline!important}
+.wb-tabs .wt.off::before{display:none}
+.wb-tabs .wt:active{transform:none}
+.wt1{display:flex;justify-content:space-between;align-items:baseline;gap:8px;min-width:0}
+.wt1 .wb-day{font-size:13.5px;font-weight:650;white-space:nowrap}
+.wt1 .wb-ca{font-size:12px;color:var(--pa-muted);white-space:nowrap}
+.wt2{display:flex;align-items:center;gap:10px;min-width:0}
+.wt-m{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:650;white-space:nowrap;color:var(--pa-text)}
+.wt-m svg{flex-shrink:0;display:block}
+.wt-m small{font-size:11.5px;font-weight:500;color:var(--pa-muted)}
+.wt3{display:flex;flex-wrap:wrap;gap:3px 6px;align-items:center;min-height:18px;font-size:12px;color:var(--pa-muted)}
+.wt3 .wb-gap.w{background:rgba(201,143,62,.14);color:var(--wr-warn)} .wt3 .wb-gap.b{background:rgba(192,99,91,.14);color:var(--wr-bad)}
+.wt-al{font-size:12px;font-weight:700;color:var(--bad);white-space:nowrap}
+.wt-np{font-size:12px;color:var(--pa-muted2);white-space:nowrap}
+.wt-off{font-size:13px;color:var(--pa-muted2)}
+/* la page du jour prolonge l'onglet choisi */
+.wb-has-tabs + .wbm-wrap + .day-wrap .day-main>.detail-card:first-child,.wb-has-tabs ~ .day-wrap .day-main>.detail-card:first-child{border-top-left-radius:0;border-top-right-radius:0;position:relative;z-index:1}
+/* panneau latéral : les onglets ne couvrent que la colonne du planning */
+html.side-on .wb-days.wb-tabs{margin-right:314px!important}
+@media (max-width:768px){
+  .wb-days.wb-tabs{grid-template-columns:repeat(7,minmax(146px,1fr))!important;padding:6px 2px 0!important}
+  .wt2{gap:6px}
+  .wb-tabs .wt{padding:8px 9px 7px!important} .wb-tabs .wt.sel{padding-top:11px!important}
+}
 </style>
 <body>
 
@@ -4895,6 +4969,8 @@ function renderWeekBand(sem, dayIdx, laborBanner){
   const sd=DATA[sem], pb=+sd.prod_budget||0, H=storeHours();
   const ws=calcS(sem), objTot=objSem(sem);
   const f1=v=>v.toFixed(1).replace('.',',');
+  let _nAl=0; const _alDay=new Array(7).fill(0);
+  try{ checkLaborWeek(sem).forEach(x=>x.issues.forEach(i=>{ _nAl++; if(i.ji>=0&&i.ji<7) _alDay[i.ji]++; })); }catch(e){}
   const eur=v=>Math.round(v).toLocaleString('fr-FR')+' €';
   const days=[...Array(7)].map((_,j)=>{
     const c=calcJ(sem,j), obj=c.obj;
@@ -4914,18 +4990,30 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     const pct = r==null ? '' : (r>=1?'+':'−')+Math.abs(Math.round((r-1)*100))+' %';
     const ecart = ideal!=null && !closed ? (Math.abs(diff)<0.05?'= idéal':(diff>0?'+':'−')+f1(Math.abs(diff))+' h') : '';
     const tip=`${JOURS[j]} — ${tag||'—'}${obj>0?` · CA ${eur(obj)}`:''}${r!=null?` · productivité ${Math.round(c.prod)} €/h pour un objectif de ${pb} (${pct})`:''}${ideal!=null&&!closed?` · idéal ${f1(ideal)} h selon le CA (${diff>0?'heures en trop':diff<0?'heures manquantes':'équilibré'})`:''}`;
-    const _anim=window._wrWeek!==sem && !matchMedia('(prefers-reduced-motion: reduce)').matches;
     const hKey = gap==null ? 'neu' : gap>=1 ? 'warn' : gap<=-1 ? 'bad' : 'neu';
-    const hFrac = ideal>0 ? c.tH/ideal : (c.tH>0?1:0);
     const pKey = r==null ? 'neu' : under ? 'warn' : 'ok';
-    const rings = closed ? '' : `<span class="wr-row">${wbRing(c.tH>0?f1(c.tH):'0',hFrac,hKey,'heures',`${f1(c.tH)} heures pour ${ideal!=null?f1(ideal):'—'} idéales`,_anim)}${wbRing(r!=null?Math.round(c.prod):'—',r||0,pKey,'€ / h',`${r!=null?Math.round(c.prod):'—'} euros de l'heure pour un objectif de ${pb||'—'}`,_anim)}</span>`;
-    return `<button type="button" class="wb-card${sel?' sel':''}${closed?' closed':''}${under?' under':''}" onclick="setDay(${j})" title="${esc(tip)}">
-      <span class="wb-r1"><span class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note">📝</span>':''}</span><span class="wb-ca">${closed?'fermé':obj>0?eur(obj):''}</span></span>
-      ${closed?`<span class="wb-r2"><span class="wb-h">${c.tH<=0?'—':f1(c.tH)+'&nbsp;h'}</span></span>`:rings}
-      ${closed?'':`<span class="wb-r4">${gapChip}${r!=null?`<span class="wr-pct wr-${pKey}">${under?'':'✓ '}${pct}${under?' sous obj.':''}</span>`:''}</span>
-      <span class="wb-r5">idéal ${ideal!=null?f1(ideal)+'&nbsp;h':'—'}${c.npH>0?` · ${f1(c.npH)}&nbsp;h non prod.`:''}</span>`}
+    const stKey = hKey==='bad' ? 'bad' : (hKey==='warn'||pKey==='warn') ? 'warn' : pKey==='ok' ? 'ok' : 'neu';
+    const ferme = H[j].closed && c.tH>0;                                   // jour fermé mais des heures planifiées : on ne les cache pas
+    const caTxt = closed ? 'fermé' : ferme ? `fermé · ${f1(c.tH)} h` : obj>0 ? eur(obj) : 'CA non saisi';
+    const mr=(frac,key,val,unit)=>{ const rr=8,C=2*Math.PI*rr,f=Math.max(0,Math.min(frac||0,1));
+      return `<span class="wt-m"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="${rr}" fill="none" class="wr-tr" stroke-width="3.5"/>${f>0.01?`<circle cx="11" cy="11" r="${rr}" fill="none" stroke="url(#wrg-${key})" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C*(1-f)).toFixed(2)}" transform="rotate(-90 11 11)"/>`:''}</svg>${val}<small>${unit}</small></span>`; };
+    const hFrac = ideal>0 ? c.tH/ideal : (c.tH>0?1:0);
+    const nAl=_alDay[j];
+    const aria=`${JOURS[j]} ${dayNum(PLANNING_YEAR,sem,j)}. ${closed?'Fermé':`${f1(c.tH)} heures${ideal!=null?', idéal '+f1(ideal):''}, ${r!=null?Math.round(c.prod)+' euros de l’heure pour '+pb:'productivité non calculée'}`}${nAl?`, ${nAl} alerte${nAl>1?'s':''}`:''}`;
+    return `<button type="button" class="wb-card wt${sel?' sel':''}${closed?' closed off':''}" onclick="setDay(${j})" style="--st:var(--wt-${stKey})" title="${esc(tip)}" aria-label="${esc(aria)}" aria-pressed="${sel}">
+      <span class="wt1"><b class="wb-day">${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${note?' <span class="wb-note" title="Note du jour">📝</span>':''}</b><span class="wb-ca">${caTxt}</span></span>
+      ${closed?'<span class="wt-off">—</span>':`<span class="wt2">${mr(hFrac,hKey,f1(c.tH),'h')}${mr(r||0,pKey,r!=null?Math.round(c.prod):'—','€/h')}</span>
+      <span class="wt3">${gapChip}${r!=null?`<span class="wr-pct wr-${pKey}">${under?'':'✓ '}${pct}</span>`:''}${nAl?`<span class="wt-al">⚠ ${nAl}</span>`:''}${c.npH>0?`<span class="wt-np" title="Heures non productives">${f1(c.npH)} h n.p.</span>`:''}</span>`}
     </button>`;
   }).join('');
+  // ── Barre compacte affichée quand on fait défiler (les grandes tuiles restent en haut de page) ──
+  const _hk=d=>{ if(d.closed||d.diff==null||!(d.obj>0)) return 'neu'; return d.diff>=1?'warn':d.diff<=-1?'bad':'neu'; };
+  const mini = days.map(d=>{ const {j,c,closed}=d;
+    if(closed && c.tH<=0) return `<span class="wbm-d off"><b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}</b><span>fermé</span></span>`;
+    const r = pb>0 && c.pH>0 && d.obj>0 ? c.prod/pb : null, pk = r==null?'neu':r<1?'warn':'ok', hk=_hk(d);
+    const gap = hk==='warn'?` <span class="wbm-g wr-warn">+${f1(d.diff)}</span>`:hk==='bad'?` <span class="wbm-g wr-bad">−${f1(-d.diff)}</span>`:'';
+    return `<button type="button" class="wbm-d${j===dayIdx?' sel':''}" onclick="setDay(${j})" title="${esc(JOURS[j])} : ${f1(c.tH)} h${d.ideal!=null?' (idéal '+f1(d.ideal)+' h)':''}${r!=null?' · '+Math.round(c.prod)+' €/h pour '+pb:''}">
+      <b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${d.obj>0?` <span class="wbm-ca">${eur(d.obj)}</span>`:''}</b><span class="wbm-v"><i class="wbm-dot wr-${hk}"></i>${f1(c.tH)} h${gap}</span><span class="wbm-v"><i class="wbm-dot wr-${pk}"></i>${r!=null?Math.round(c.prod):'—'}<small>€/h</small></span></button>`; }).join('');
   // Rééquilibrage suggéré
   const over=days.filter(d=>d.diff!=null&&d.diff>=1&&!d.closed).sort((a,b)=>b.diff-a.diff);
   const under=days.filter(d=>d.diff!=null&&d.diff<=-1&&!d.closed).sort((a,b)=>a.diff-b.diff);
@@ -4969,11 +5057,12 @@ function renderWeekBand(sem, dayIdx, laborBanner){
   try{ const el=document.getElementById('cmdWeekSum'); if(el){
     el.innerHTML=`<span>${weekRangeLabel(PLANNING_YEAR,sem)}</span><span>CA <b>${objTot>0?eur(objTot):'—'}</b></span><span><b>${f1(ws.tH)} h</b></span><span title="Productivité de la semaine${pb?' · objectif '+pb+' €/h':''}"><b${wr!=null&&wr<1?` style="color:${wcol}"`:''}>${wr!=null?Math.round(ws.prodMoy)+' €/h':'—'}</b>${pctTxt?` <small style="color:${wcol}">${wr>=1?'✓ +':'−'}${Math.round(Math.abs(wr-1)*100)} %</small>`:''}</span>`;
     el.title=`${fullWeekLabel(sem)} · ${weekRangeLabel(PLANNING_YEAR,sem)}${pctTxt?' · '+pctTxt:''}`; setTimeout(()=>{ try{ fitCmdBar(); }catch(e){} },0); } }catch(e){}
-  return `<div class="wb">
+  return `<div class="wb wb-has-tabs">
     ${laborBanner}
-    ${week('wb-line-d')}
-    <div class="wb-days wb-glass">${WR_DEFS}${cards}<span class="wb-ind" aria-hidden="true"></span></div>
-  </div>${week('wb-line-m')}${rebal.replace('%%OPT%%',optBtn)}`;
+    ${week('wb-line-d')}${week('wb-line-m')}
+    ${rebal.replace('%%OPT%%',optBtn)}
+    <div class="wb-days wb-tabs" role="tablist" aria-label="Jours de la semaine">${WR_DEFS}${cards}<span class="wb-ind" aria-hidden="true"></span></div>
+  </div><div class="wbm-wrap"><div class="wbm" id="wbMini" aria-hidden="true">${mini}${_nAl?`<button type="button" class="wbm-al" onclick="openAlerts()" title="Alertes droit du travail">⚠ ${_nAl}</button>`:''}</div></div>`;
 }
 
 // ══ PLANNING JOUR : COURBE DE PRÉSENCE, PANNEAU DU CRÉNEAU SÉLECTIONNÉ ══
@@ -5012,6 +5101,15 @@ const WR_DEFS=`<svg width="0" height="0" style="position:absolute" aria-hidden="
   <linearGradient id="wrg-warn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3b679"/><stop offset="1" stop-color="#c48a40"/></linearGradient>
   <linearGradient id="wrg-bad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e09a92"/><stop offset="1" stop-color="#c0635b"/></linearGradient>
   <linearGradient id="wrg-neu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c3bfc8"/><stop offset="1" stop-color="#97929d"/></linearGradient></defs></svg>`;
+var _wbmIO=null;
+function wbMiniObserve(){
+  const days=document.querySelector('.wb-days'), mini=document.getElementById('wbMini'); if(_wbmIO){ _wbmIO.disconnect(); _wbmIO=null; } if(!days||!mini) return;
+  if(!('IntersectionObserver' in window)) return;
+  _wbmIO=new IntersectionObserver(es=>{ es.forEach(e=>{ const show=e.intersectionRatio<0.35 && e.boundingClientRect.top<(e.rootBounds?e.rootBounds.top+200:200);
+    mini.classList.toggle('on',show); mini.setAttribute('aria-hidden',show?'false':'true'); }); },{threshold:[0,0.35,0.7,1]});
+  _wbmIO.observe(days);
+  const s=mini.querySelector('.wbm-d.sel'); if(s && mini.scrollWidth>mini.clientWidth+2) mini.scrollLeft=Math.max(0,s.offsetLeft-(mini.clientWidth-s.offsetWidth)/2);
+}
 function wbRingsAnim(){ const arcs=[...document.querySelectorAll('.wb-days .wr-arc')]; if(!arcs.length) return;
   if(arcs.some(a=>Math.abs(parseFloat(a.getAttribute('stroke-dashoffset'))-parseFloat(a.dataset.to))>0.5))
     requestAnimationFrame(()=>requestAnimationFrame(()=>arcs.forEach(a=>a.setAttribute('stroke-dashoffset',a.dataset.to)))); }
@@ -5288,7 +5386,7 @@ function renderContent(){
   const _pb=s.prod_budget||0, _note=getNotes(cW)[cD]||'';
   let panel=`<div class="detail-card">
     <div class="dh2">
-      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}<span class="dh2-sum"> · ${_f1(calc.tH)} h${calc.tH>0?' · '+Math.round(calc.prod)+' €/h':''}</span></span></div>
+      <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}<span class="dh2-sum">${calc.obj>0?` · obj. CA <b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b>`:''}${(()=>{ try{ const ot=objSem(cW), wsT=calcS(cW).tH; return ot>0&&calc.obj>0?` · idéal ${_f1(wsT*calc.obj/ot)} h`:''; }catch(e){ return ''; } })()} · ${_f1(calc.tH)} h${calc.tH>0?' · '+Math.round(calc.prod)+' €/h':''}</span></span></div>
       %%DHCOV%%
       <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><textarea class="note-inp" rows="1" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" oninput="noteFit(this)" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">${esc(_note)}</textarea></label>
       <div class="dh2-kpis">
@@ -5474,6 +5572,7 @@ function renderContent(){
   try{ placeWbInd(); }catch(e){}
   try{ document.querySelectorAll('.dh2-note .note-inp').forEach(noteFit); }catch(e){}
   try{ wbRingsAnim(); window._wrWeek=cW; }catch(e){}
+  try{ wbMiniObserve(); }catch(e){}
   updateUndoBtn();
   try{ rtLabel(document.getElementById('content')); }catch(e){}
 }
