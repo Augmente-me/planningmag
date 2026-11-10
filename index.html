@@ -2053,6 +2053,32 @@ html.side-on .wb-days.wb-tabs{margin-right:314px!important}
   .wt2{gap:6px}
   .wb-tabs .wt{padding:8px 9px 7px!important} .wb-tabs .wt.sel{padding-top:11px!important}
 }
+
+/* ══════ Barre compacte lisible : opaque, jour choisi plein, couleur seulement sur le chiffre à problème ══════ */
+.wbm{background:var(--pa-surface)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding:4px 10px 4px 6px!important;gap:0!important;
+  border-bottom:1px solid var(--pa-border)!important;box-shadow:0 1px 0 rgba(0,0,0,.03),0 6px 14px rgba(20,30,25,.08)!important;align-items:stretch!important}
+.wbx{flex:1 1 0;min-width:108px;display:flex;flex-direction:column;gap:1px;padding:6px 10px;border-radius:9px;border:none;background:none;font:inherit;color:var(--pa-text);text-align:left;cursor:pointer;
+  transition:background-color 120ms ease;font-variant-numeric:tabular-nums}
+.wbx+.wbx{box-shadow:-1px 0 0 var(--pa-border)}
+@media (hover:hover) and (pointer:fine){ .wbx:not(.sel):not(.off):hover{background:var(--pa-surface2,#f1f1f1)} }
+.wbx:active{transform:scale(.98)}
+.wbx .l1{display:flex;justify-content:space-between;align-items:baseline;gap:8px;white-space:nowrap}
+.wbx .l1 b{font-size:13px;font-weight:650}
+.wbx .l1 span{font-size:12px;color:var(--pa-muted)}
+.wbx .l2{display:flex;gap:8px;font-size:12.5px;white-space:nowrap;color:var(--pa-text2)}
+.wbx .v.warn{color:var(--wr-warn);font-weight:650} .wbx .v.bad{color:var(--wr-bad);font-weight:650}
+.wbx.sel{background:var(--ac);color:#fff;box-shadow:none} .wbx.sel+.wbx{box-shadow:none}
+.wbx.sel .l1 span,.wbx.sel .l2,.wbx.sel .v{color:#fff!important;opacity:.92}
+.wbx.sel .v.warn::after,.wbx.sel .v.bad::after{content:" ●";font-size:9px;vertical-align:2px}
+.wbx.off{cursor:default;color:var(--pa-muted2)} .wbx.off .l1 span,.wbx.off .l2{color:var(--pa-muted2)}
+.wbm-al{align-self:center;margin-left:8px!important;font-size:12.5px!important;padding:5px 11px!important;white-space:nowrap}
+@media (max-width:768px){ .wbx{flex:0 0 auto;min-width:112px;padding:5px 8px} }
+/* boutons R / ✕ dans la cellule du nom, avec un fondu : l'horaire reste lisible */
+@media (hover:hover) and (pointer:fine) and (min-width:769px){
+  .fused-table td.c-emp{position:relative}
+  .fused-table td.c-emp .hor-act{right:4px!important;padding-left:18px;background:linear-gradient(90deg,transparent,var(--pa-surface) 16px)}
+  .fused-table tr.sel-row td.c-emp .hor-act,.fused-table tr.selected td.c-emp .hor-act{background:linear-gradient(90deg,transparent,var(--ac-lt) 16px)}
+}
 </style>
 <body>
 
@@ -5009,11 +5035,15 @@ function renderWeekBand(sem, dayIdx, laborBanner){
   // ── Barre compacte affichée quand on fait défiler (les grandes tuiles restent en haut de page) ──
   const _hk=d=>{ if(d.closed||d.diff==null||!(d.obj>0)) return 'neu'; return d.diff>=1?'warn':d.diff<=-1?'bad':'neu'; };
   const mini = days.map(d=>{ const {j,c,closed}=d;
-    if(closed && c.tH<=0) return `<span class="wbm-d off"><b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}</b><span>fermé</span></span>`;
-    const r = pb>0 && c.pH>0 && d.obj>0 ? c.prod/pb : null, pk = r==null?'neu':r<1?'warn':'ok', hk=_hk(d);
-    const gap = hk==='warn'?` <span class="wbm-g wr-warn">+${f1(d.diff)}</span>`:hk==='bad'?` <span class="wbm-g wr-bad">−${f1(-d.diff)}</span>`:'';
-    return `<button type="button" class="wbm-d${j===dayIdx?' sel':''}" onclick="setDay(${j})" title="${esc(JOURS[j])} : ${f1(c.tH)} h${d.ideal!=null?' (idéal '+f1(d.ideal)+' h)':''}${r!=null?' · '+Math.round(c.prod)+' €/h pour '+pb:''}">
-      <b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}${d.obj>0?` <span class="wbm-ca">${eur(d.obj)}</span>`:''}</b><span class="wbm-v"><i class="wbm-dot wr-${hk}"></i>${f1(c.tH)} h${gap}</span><span class="wbm-v"><i class="wbm-dot wr-${pk}"></i>${r!=null?Math.round(c.prod):'—'}<small>€/h</small></span></button>`; }).join('');
+    if(closed && c.tH<=0) return `<span class="wbx off"><span class="l1"><b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}</b><span>fermé</span></span><span class="l2">—</span></span>`;
+    const r = pb>0 && c.pH>0 && d.obj>0 ? c.prod/pb : null, hk=_hk(d);
+    const ferme = H[j].closed && c.tH>0;
+    const ca = ferme ? `fermé · ${f1(c.tH)} h` : d.obj>0 ? eur(d.obj) : 'CA —';
+    const hc = hk==='warn' ? ' warn' : hk==='bad' ? ' bad' : '';
+    const pc = r!=null && r<1 ? ' bad' : '';
+    return `<button type="button" class="wbx${j===dayIdx?' sel':''}" onclick="setDay(${j})" aria-pressed="${j===dayIdx}" title="${esc(JOURS[j])} : ${f1(c.tH)} h${d.ideal!=null?' pour '+f1(d.ideal)+' h idéales':''}${r!=null?' · '+Math.round(c.prod)+' €/h pour '+pb:''}">
+      <span class="l1"><b>${JCOURT[j]} ${dayNum(PLANNING_YEAR,sem,j)}</b><span>${ca}</span></span>
+      <span class="l2"><span class="v${hc}">${f1(c.tH)} h${hk==='warn'?' ▲':hk==='bad'?' ▼':''}</span><span class="v${pc}">${r!=null?Math.round(c.prod):'—'} €/h</span></span></button>`; }).join('');
   // Rééquilibrage suggéré
   const over=days.filter(d=>d.diff!=null&&d.diff>=1&&!d.closed).sort((a,b)=>b.diff-a.diff);
   const under=days.filter(d=>d.diff!=null&&d.diff<=-1&&!d.closed).sort((a,b)=>a.diff-b.diff);
@@ -5062,7 +5092,7 @@ function renderWeekBand(sem, dayIdx, laborBanner){
     ${week('wb-line-d')}${week('wb-line-m')}
     ${rebal.replace('%%OPT%%',optBtn)}
     <div class="wb-days wb-tabs" role="tablist" aria-label="Jours de la semaine">${WR_DEFS}${cards}<span class="wb-ind" aria-hidden="true"></span></div>
-  </div><div class="wbm-wrap"><div class="wbm" id="wbMini" aria-hidden="true">${mini}${_nAl?`<button type="button" class="wbm-al" onclick="openAlerts()" title="Alertes droit du travail">⚠ ${_nAl}</button>`:''}</div></div>`;
+  </div><div class="wbm-wrap"><div class="wbm" id="wbMini" aria-hidden="true">${mini}${_nAl?`<button type="button" class="wbm-al" onclick="openAlerts()" title="Alertes droit du travail">⚠ ${_nAl>99?'99+':_nAl} alerte${_nAl>1?'s':''}</button>`:''}</div></div>`;
 }
 
 // ══ PLANNING JOUR : COURBE DE PRÉSENCE, PANNEAU DU CRÉNEAU SÉLECTIONNÉ ══
@@ -5108,7 +5138,7 @@ function wbMiniObserve(){
   _wbmIO=new IntersectionObserver(es=>{ es.forEach(e=>{ const show=e.intersectionRatio<0.35 && e.boundingClientRect.top<(e.rootBounds?e.rootBounds.top+200:200);
     mini.classList.toggle('on',show); mini.setAttribute('aria-hidden',show?'false':'true'); }); },{threshold:[0,0.35,0.7,1]});
   _wbmIO.observe(days);
-  const s=mini.querySelector('.wbm-d.sel'); if(s && mini.scrollWidth>mini.clientWidth+2) mini.scrollLeft=Math.max(0,s.offsetLeft-(mini.clientWidth-s.offsetWidth)/2);
+  const s=mini.querySelector('.wbx.sel'); if(s && mini.scrollWidth>mini.clientWidth+2) mini.scrollLeft=Math.max(0,s.offsetLeft-(mini.clientWidth-s.offsetWidth)/2);
 }
 function wbRingsAnim(){ const arcs=[...document.querySelectorAll('.wb-days .wr-arc')]; if(!arcs.length) return;
   if(arcs.some(a=>Math.abs(parseFloat(a.getAttribute('stroke-dashoffset'))-parseFloat(a.dataset.to))>0.5))
@@ -5492,8 +5522,8 @@ function renderContent(){
       <td class="c-emp" onclick="selectSlot(${ci})" style="cursor:pointer" title="${esc(c.nom)} — toucher pour modifier le créneau"><div class="emp-cell">
         <div class="emp-av" style="background:${c.color}">${ini(c.nom)}</div>
         <div style="min-width:0"><div class="emp-nm" title="${esc(c.nom)}">${c.nom}</div><div class="emp-tp">${c.base}h/sem${collHasRange(c)||c.ctype&&c.ctype!=='CDI'?` <span class="emp-ct" title="Période de contrat">${esc(collContractTag(c))}</span>`:''} ${laborBadge}</div></div>
-      </div></td>
-      <td class="c-hor" data-l="Horaire" onclick="openHM(${ci})" style="cursor:pointer" title="Modifier l'horaire">${dc}${pc2}<span class="hor-act"><button type="button" onclick="event.stopPropagation();quickRepos(${ci})" title="Mettre en repos" aria-label="Mettre en repos">R</button><button type="button" class="d" onclick="event.stopPropagation();clearDay(${ci})" title="Effacer les heures" aria-label="Effacer les heures">✕</button></span></td>
+      </div><span class="hor-act"><button type="button" onclick="event.stopPropagation();quickRepos(${ci})" title="Mettre en repos" aria-label="Mettre en repos">R</button><button type="button" class="d" onclick="event.stopPropagation();clearDay(${ci})" title="Effacer les heures" aria-label="Effacer les heures">✕</button></span></td>
+      <td class="c-hor" data-l="Horaire" onclick="openHM(${ci})" style="cursor:pointer" title="Modifier l'horaire">${dc}${pc2}</td>
       <td class="c-bar" style="padding:4px 8px"><div class="gantt-grid" style="height:24px">${peakBands}${ticks}${bar}${pauseEl}${npBars(slot)}</div></td>
       <td class="c-heb" data-l="Semaine" style="text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-left:2px solid var(--pa-blue-mid)">${fT(wH)}</td>
       <td class="c-ecart" data-l="Écart contrat" style="text-align:center">${Math.abs(diff)<0.01?'<span class="ec-eq">=</span>':`<span class="ec-pill ${diff>0?'w':'b'}">${(diff>0?'+':'')+fT(diff)}</span>`}</td>
