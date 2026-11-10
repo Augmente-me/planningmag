@@ -1973,6 +1973,12 @@ html.side-on .labor-banner{display:none}
   .fused-table .emp-av{width:30px!important;height:30px!important;font-size:12px!important}
   .fused-table .emp-tp{font-size:12px}
 }
+
+/* Note du jour sur plusieurs lignes, texte toujours visible en entier */
+.dh2-note{height:auto!important;min-height:34px;align-items:flex-start!important;padding:7px 10px!important}
+.dh2-note>span{line-height:20px}
+.dh2-note textarea.note-inp{resize:none;overflow:hidden;font:inherit;font-size:13px;line-height:20px;min-height:20px;display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--pa-text);outline:none}
+@media (pointer:coarse){ .dh2-note textarea.note-inp{font-size:16px} }
 </style>
 <body>
 
@@ -5284,7 +5290,7 @@ function renderContent(){
     <div class="dh2">
       <div class="dh2-title"><b>${JOURS[cD]} ${dayLabelLong(PLANNING_YEAR,cW,cD)}</b><span>${fullWeekLabel(cW)}${(()=>{ const H=storeHours()[cD]; return H.closed?' · fermé':` · ouvert ${H.o} – ${H.c}`; })()}<span class="dh2-sum"> · ${_f1(calc.tH)} h${calc.tH>0?' · '+Math.round(calc.prod)+' €/h':''}</span></span></div>
       %%DHCOV%%
-      <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><input class="note-inp" value="${esc(_note)}" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></label>
+      <label class="dh2-note${_note?' has':''}" title="Note du jour"><span aria-hidden="true">📝</span><textarea class="note-inp" rows="1" placeholder="Note du ${JOURS[cD].toLowerCase()} (livraison, inventaire, visite…)" onchange="setDayNote(this.value)" oninput="noteFit(this)" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">${esc(_note)}</textarea></label>
       <div class="dh2-kpis">
         <div class="dh2-k"><small>Obj. CA</small><b>${calc.obj.toLocaleString('fr',{maximumFractionDigits:0})} €</b></div>
         <div class="dh2-k"><small>Heures</small><b>${_f1(calc.tH)} h</b>${calc.npH>0?`<em>dont ${_f1(calc.npH)} h non prod.</em>`:''}</div>
@@ -5466,6 +5472,7 @@ function renderContent(){
   initGanttDrag(); dayLayout(); dsSheetInit(); try{ gridVars(); }catch(e){}
   try{ const wd=document.querySelector('.wb-days'), sc=document.querySelector('.wb-card.sel'); if(wd&&sc&&wd.scrollWidth>wd.clientWidth+2){ const l=sc.offsetLeft-(wd.clientWidth-sc.offsetWidth)/2; wd.scrollLeft=Math.max(0,l); } }catch(e){}
   try{ placeWbInd(); }catch(e){}
+  try{ document.querySelectorAll('.dh2-note .note-inp').forEach(noteFit); }catch(e){}
   try{ wbRingsAnim(); window._wrWeek=cW; }catch(e){}
   updateUndoBtn();
   try{ rtLabel(document.getElementById('content')); }catch(e){}
@@ -7454,6 +7461,8 @@ function applyTypeWeeks(){
 
 // ══ 4. NOTES DU JOUR ══
 function getNotes(w){ const d=DATA[w]; return Array.isArray(d?.notes)?d.notes:new Array(7).fill(''); }
+// Note du jour : le champ s'agrandit pour afficher le texte en entier
+function noteFit(el){ if(!el) return; el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
 function setDayNote(v){
   const d=DATA[cW]; if(!Array.isArray(d.notes)) d.notes=new Array(7).fill('');
   d.notes[cD]=String(v||'').trim();
