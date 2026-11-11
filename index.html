@@ -2623,6 +2623,41 @@ html[data-skin="tuiles"] .tl-th .tl-k b{color:var(--tl-ink);font-weight:700}
 html[data-skin="tuiles"] .tl-hint{margin-top:10px;font-size:12px;color:var(--pa-muted)}
 @media (max-width:768px){ html[data-skin="tuiles"] .tl-tot:not(.l):not(.w){display:none} html[data-skin="tuiles"] .tl-th{flex-wrap:wrap} html[data-skin="tuiles"] .tl-th .tl-k{display:block!important;margin-left:0;width:100%} }
 @media print{ .tl-top .tl-hero,.tl-after,.tl-x,.tl-team{display:none!important} }
+
+/* ═════ Fiche du créneau (vue Semaine) ═════ */
+.wi-ov{position:fixed;inset:0;z-index:calc(var(--z-sheet) - 1);background:rgba(18,12,16,.32);opacity:0;pointer-events:none;transition:opacity 220ms ease}
+.wi{position:fixed;z-index:var(--z-sheet);top:84px;right:max(16px,env(safe-area-inset-right,0px));width:340px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 104px);overflow:auto;overscroll-behavior:contain;
+  background:var(--pa-surface);color:var(--pa-text);border-radius:22px;padding:16px;box-shadow:0 30px 80px -20px rgba(0,0,0,.35),0 0 0 1px var(--pa-border);
+  transform:translateX(24px) scale(.97);opacity:0;pointer-events:none;transition:transform 320ms cubic-bezier(.34,1.36,.64,1),opacity 180ms ease}
+.wi.open{transform:none;opacity:1;pointer-events:auto}
+.wi-grab{display:none}
+.wi-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.wi-h>div{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.wi-h b{font-size:15px}.wi-h small{font-size:12.5px;color:var(--pa-muted)}
+.wi-x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:var(--pa-surface2);color:var(--pa-text2);cursor:pointer;flex-shrink:0}
+.wi-wk{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:14px;background:var(--pa-surface2);font-size:13px;margin-bottom:6px}
+.wi-f{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--pa-border);font-size:14px}
+.wi-step{display:flex;align-items:center;gap:6px}
+.wi-step button{width:38px;height:38px;border-radius:50%;border:0;background:var(--pa-surface2);color:var(--pa-text);font-size:19px;font-weight:600;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1)}
+.wi-step button:active{transform:scale(.92)}
+.wi-step b{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;font-size:15px}
+.wi-none{padding:12px 0;color:var(--pa-muted);font-size:13.5px;border-bottom:1px solid var(--pa-border)}
+.wi-chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0}
+.wi-chips button{border:0;border-radius:999px;background:var(--pa-surface2);color:var(--pa-text2);font:600 13px var(--ff);padding:0 13px;min-height:36px;cursor:pointer;transition:background-color 160ms ease,color 160ms ease,transform 120ms cubic-bezier(.23,1,.32,1)}
+.wi-chips button:active{transform:scale(.96)}
+.wi-chips button.on{background:var(--ac);color:#fff}
+html[data-skin="tuiles"] .wi-chips button.on{background:var(--tl-ink);color:var(--tl-card)}
+.wi-more{width:100%;min-height:44px;border-radius:999px;border:1px solid var(--pa-border2);background:var(--pa-surface);color:var(--pa-text);font:600 14px var(--ff);cursor:pointer}
+.gantt-bar.wi-sel{box-shadow:0 0 0 2px var(--pa-surface),0 0 0 4px var(--pa-text)!important}
+@media (min-width:769px){ .wi-ov{display:none} }
+@media (max-width:768px){
+  .wi{top:auto;bottom:0;left:0;right:0;width:auto;max-width:none;max-height:85dvh;border-radius:22px 22px 0 0;padding:8px 16px calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(100%);opacity:1;transition:transform 320ms cubic-bezier(.32,.72,0,1)}
+  .wi.open{transform:none}
+  .wi-ov.open{opacity:1;pointer-events:auto}
+  .wi-grab{display:block;width:40px;height:5px;border-radius:3px;background:var(--pa-border2);margin:4px auto 12px}
+  .wi-chips button,.wi-step button{min-height:44px}.wi-step button{width:44px;height:44px}
+}
+@media (pointer:coarse){ .wi-chips button{min-height:44px} }
 /* ═════ Ordinateur : place optimisée + notes qui s'adaptent ═════ */
 .wb-note .ico{width:14px;height:14px;color:var(--ac);vertical-align:-2px}
 .pv-note .ico{width:13px;height:13px;vertical-align:-2px}
@@ -5853,7 +5888,7 @@ function fabSync(){ const f=document.getElementById('fabSave'); if(!f) return; l
 
 // ══════ Vue Semaine : grille (ordinateur) / jours empilés (téléphone) — réglage de l'appareil ══════
 function viewMode(){ try{ return localStorage.getItem('atoll_view')==='semaine'?'semaine':'jour'; }catch(e){ return 'jour'; } }
-function setViewMode(m,j){ try{ localStorage.setItem('atoll_view',m); }catch(e){} if(j!=null) cD=j; try{ tbSet(m==='semaine'?'semaine':'jour'); }catch(e){}
+function setViewMode(m,j){ try{ wiClose(); }catch(e){} try{ localStorage.setItem('atoll_view',m); }catch(e){} if(j!=null) cD=j; try{ tbSet(m==='semaine'?'semaine':'jour'); }catch(e){}
   document.documentElement.classList.toggle('wg-mode',m==='semaine'); renderContent(); const c=document.querySelector('.content'); if(c&&m==='jour'&&j!=null) c.scrollTo({top:0}); }
 function vmSwitch(){ const m=viewMode(); return `<span class="vm-sw" role="group" aria-label="Affichage"><button type="button" class="${m==='jour'?'on':''}" aria-pressed="${m==='jour'}" onclick="setViewMode('jour')">Jour</button><button type="button" class="${m==='semaine'?'on':''}" aria-pressed="${m==='semaine'}" onclick="setViewMode('semaine')">Semaine</button></span>`; }
 function weekViewRange(sem){ let lo=Infinity,hi=-Infinity; const H=storeHours();
@@ -5903,7 +5938,7 @@ function renderWeekGrid(sem){
   foot('Heures',j=>`<b>${fD(ST[j].c.tH)}</b> ${ST[j].hp}`);
   foot('Productivité',j=>ST[j].pp||'<span class="wg-dim">CA non saisi</span>');
   foot('Présence',j=>ST[j].cov+(ST[j].gapQ?`<span class="wg-gap">${String(ST[j].gapQ/4).replace('.',',')} h sous le besoin</span>`:''));
-  return `<div class="wg-card"><div class="wg-top"><b>Semaine en grille</b><span>Glissez une barre pour la déplacer, tirez un bout pour changer l'horaire · cliquez une case vide ou un jour pour l'ouvrir en détail</span></div>
+  return `<div class="wg-card"><div class="wg-top"><b>Semaine en grille</b><span>Glissez une barre pour la déplacer, tirez un bout pour changer l'horaire · cliquez une barre ou une case pour ouvrir sa fiche, un jour pour le détail</span></div>
     <div class="wg-scroll"><div class="wg-grid" style="grid-template-columns:var(--wk-c0w,170px) ${cols} 76px 64px">${g}</div></div></div>`; }
 var _wkOpen=null;
 function renderWeekStack(sem){
@@ -5921,7 +5956,45 @@ function renderWeekStack(sem){
       ${open?`<div class="wg-pb">${notes[j]?`<div class="wg-note">${ico('note')}<span>${esc(notes[j])}</span></div>`:''}${rows}<button type="button" class="wg-open" onclick="setViewMode('jour',${j})">Ouvrir ${JOURS[j].toLowerCase()} en détail</button></div>`:''}</div>`; }).join('');
   return `<div class="wg-stack">${out}</div>`; }
 function wkToggle(j){ if(!_wkOpen) _wkOpen=new Set(); _wkOpen.has(j)?_wkOpen.delete(j):_wkOpen.add(j); renderContent(); }
-function wkCellClick(e,j,ci){ if(e.target.closest('.gantt-bar,.gantt-pausebar')) return; setViewMode('jour',j); try{ selectSlot(ci); }catch(_){} }
+function wkCellClick(e,j,ci){ if(e.target.closest('.gantt-bar')) return; if(_wi&&_wi.j===j&&_wi.ci===ci&&document.getElementById('wiPanel')?.classList.contains('open')) return; wiOpen(j,ci); }
+// ══════ Fiche du créneau (vue Semaine) : glisse depuis la droite, monte du bas sur téléphone ══════
+var _wi=null;
+function wiSlot(){ return _wi?DATA[cW]?.jours?.[_wi.j]?.collaborateurs?.[_wi.ci]:null; }
+function wiOpen(j,ci){ _wi={j,ci}; let el=document.getElementById('wiPanel');
+  if(!el){ el=document.createElement('div'); el.id='wiPanel'; el.className='wi'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Créneau');
+    const ov=document.createElement('div'); ov.id='wiOv'; ov.className='wi-ov'; ov.onclick=wiClose; document.body.appendChild(ov); document.body.appendChild(el); }
+  wiRender(); requestAnimationFrame(()=>{ el.classList.add('open'); document.getElementById('wiOv').classList.add('open'); });
+  document.querySelectorAll('.wi-sel').forEach(x=>x.classList.remove('wi-sel')); document.querySelectorAll(`.gantt-bar[data-j="${j}"][data-ci="${ci}"]`).forEach(x=>x.classList.add('wi-sel')); }
+function wiClose(){ _wi=null; const el=document.getElementById('wiPanel'), ov=document.getElementById('wiOv'); if(el) el.classList.remove('open'); if(ov) ov.classList.remove('open'); document.querySelectorAll('.wi-sel').forEach(x=>x.classList.remove('wi-sel')); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&_wi){ e.stopPropagation(); wiClose(); } },true);
+function wiIsForm(sl){ const n=npList(sl); return n.length===1&&n[0].t==='FORM'&&n[0].d===sl.debut&&n[0].f===sl.fin; }
+function wiRender(){ const el=document.getElementById('wiPanel'); if(!el||!_wi) return; const sl=wiSlot(); const WC=getCollsForWeek(cW), c=WC[_wi.ci]; if(!sl||!c){ wiClose(); return; }
+  const j=_wi.j, work=sl.statut==='work'&&calcH(sl)>0, h=calcH(sl), ps=work&&sl.pause>0?pauseStart(sl):null;
+  let wH=0; for(let k=0;k<7;k++) wH+=calcH(DATA[cW].jours[k].collaborateurs[_wi.ci]); const bE=baseEff(_wi.ci,cW,c), d=wH-bE;
+  const step=(lbl,f,val)=>`<div class="wi-f"><span>${lbl}</span><span class="wi-step"><button type="button" onclick="wiStep('${f}',-0.25)" aria-label="${lbl} : moins 15 minutes">−</button><b>${val}</b><button type="button" onclick="wiStep('${f}',0.25)" aria-label="${lbl} : plus 15 minutes">+</button></span></div>`;
+  const pv=v=>v?(v<1?Math.round(v*60)+' min':fD(v)):'aucune';
+  const isF=wiIsForm(sl), chip=(k,l)=>{ const on=k==='FORM'?(work&&isF):k==='work'?(work&&!isF):sl.statut===k; return `<button type="button" class="${on?'on':''}" aria-pressed="${on}" onclick="wiStatus('${k}')">${l}</button>`; };
+  el.innerHTML=`<span class="wi-grab" aria-hidden="true"></span>
+    <div class="wi-h"><span class="emp-av" style="background:${c.color}">${ini(c.nom)}</span><div><b>${esc(c.nom)}</b><small>${JOURS[j]} ${dayLabelLong(PLANNING_YEAR,cW,j)} · ${work?fD(h):'pas de travail'}</small></div><button type="button" class="wi-x" onclick="wiClose()" aria-label="Fermer">✕</button></div>
+    <div class="wi-wk"><span>Semaine <b>${fD(wH)}</b> / ${fD(bE)}</span>${Math.abs(d)<0.05?'<span class="ec-eq">=</span>':`<span class="ec-pill ${d>0?'w':'b'}">${(d>0?'+':'')+fT(d)}</span>`}</div>
+    ${work?step('Début','debut',sl.debut)+step('Fin','fin',sl.fin)+step('Pause','pause',pv(+sl.pause||0))+(ps!=null?step('Début de pause','pauseDebut',fmtHM(ps)):''):'<div class="wi-none">'+({R:'Repos',CP:'Congé payé',MAL:'Arrêt maladie'}[sl.statut]||'Pas de créneau')+' ce jour-là. Choisissez « Travail » pour poser un créneau.</div>'}
+    <div class="wi-chips" role="group" aria-label="Statut">${chip('work','Travail')}${chip('R','Repos')}${chip('CP','Congé')}${chip('MAL','Maladie')}${chip('FORM','Formation')}</div>
+    <button type="button" class="wi-more" onclick="const j=_wi.j,ci=_wi.ci;wiClose();setViewMode('jour',j);selectSlot(ci)">Ouvrir la journée en détail</button>`; }
+function wiSave(){ try{ saveLocal(); }catch(e){} renderContent(); wiRender(); if(_wi) document.querySelectorAll(`.gantt-bar[data-j="${_wi.j}"][data-ci="${_wi.ci}"]`).forEach(x=>x.classList.add('wi-sel')); }
+function wiStep(f,dv){ const sl=wiSlot(); if(!sl||sl.statut!=='work') return; const d=t2h(sl.debut), fi=t2h(sl.fin), p=+sl.pause||0, ps=p>0?pauseStart(sl):null;
+  if(f==='debut'){ const nd=Math.max(GANTT_START,d+dv); if(fi-nd<Math.max(0.5,p+0.25)) return; sl.debut=fmtH(nd); }
+  else if(f==='fin'){ const nf=Math.min(GANTT_END,fi+dv); if(nf-d<Math.max(0.5,p+0.25)) return; sl.fin=fmtH(nf); }
+  else if(f==='pause'){ const np=Math.max(0,Math.min(3,p+dv)); if(np>fi-d-0.25) return; sl.pause=np; if(!np) delete sl.pauseDebut; }
+  else if(f==='pauseDebut'&&ps!=null){ const nps=Math.max(d,Math.min(fi-p,ps+dv)); sl.pauseDebut=fmtH(nps); }
+  // la pause reste dans le créneau
+  if(sl.pause>0&&sl.pauseDebut){ const a=t2h(sl.debut), b=t2h(sl.fin), q=t2h(sl.pauseDebut); if(q<a||q+sl.pause>b) sl.pauseDebut=fmtH(Math.max(a,Math.min(b-sl.pause,q))); }
+  if(wiIsForm(sl)===false&&Array.isArray(sl.np)&&sl.np.length===1&&sl.np[0].t==='FORM'){ sl.np=[{...sl.np[0],d:sl.debut,f:sl.fin}]; }
+  wiSave(); }
+function wiStatus(k){ const sl=wiSlot(); if(!sl) return; const j=_wi.j;
+  if(k==='work'||k==='FORM'){ if(sl.statut!=='work'||calcH(sl)<=0){ const T=TPLS[0]; Object.assign(sl,{statut:'work',debut:T?.debut||'10:00',fin:T?.fin||'19:00',pause:T?.pause??1}); delete sl.pauseDebut; }
+    if(k==='FORM') sl.np=[{t:'FORM',d:sl.debut,f:sl.fin}]; else if(wiIsForm(sl)) delete sl.np; }
+  else { sl.statut=k; delete sl.np; }
+  wiSave(); if(k==='CP'){ try{ cpWarnOnSet(cW,j); }catch(e){} } }
 
 
 // ══════ Style « Tuiles » (réglage de l'appareil, jamais enregistré dans le planning) ══════
@@ -6797,6 +6870,7 @@ function ganttPointerDown(e){
     origF: t2h(slot.fin),
     origP: slot.pause||0,
     origPS: pauseStart(slot),
+    wj: (handle.dataset.j!=null && handle.dataset.j!=='') ? _j : null,
   };
   container.classList.add('dragging');
   handle.setPointerCapture(e.pointerId);
@@ -6863,6 +6937,11 @@ function ganttPointerMove(e){
 
 function ganttPointerUp(e){
   if(!ganttDrag) return;
+  // vue Semaine : un simple clic (sans glisser) ouvre la fiche du créneau
+  if(ganttDrag.wj!=null && e.type==='pointerup' && Math.abs(e.clientX-ganttDrag.startX)<4){
+    const {wj,ci,container}=ganttDrag, hd=e.currentTarget; container.classList.remove('dragging');
+    hd.removeEventListener('pointermove', ganttPointerMove); hd.removeEventListener('pointerup', ganttPointerUp); hd.removeEventListener('pointercancel', ganttPointerUp);
+    ganttDrag=null; wiOpen(wj,ci); return; }
   const {slot, curD, curF, curPS, curP, container, isPause} = ganttDrag;
   container.classList.remove('dragging');
 
