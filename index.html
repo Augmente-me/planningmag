@@ -2658,6 +2658,48 @@ html[data-skin="tuiles"] .wi-chips button.on{background:var(--tl-ink);color:var(
   .wi-chips button,.wi-step button{min-height:44px}.wi-step button{width:44px;height:44px}
 }
 @media (pointer:coarse){ .wi-chips button{min-height:44px} }
+
+/* ═════ Connexion lisible quand l'en-tête est clair (thèmes Blanc/Beige et style Tuiles) ═════ */
+html[data-hd="light"] .login-overlay{background:#f3f3f1;background-image:radial-gradient(1200px 600px at 15% 0%,#ffffff 0%,transparent 60%),radial-gradient(900px 600px at 100% 100%,color-mix(in srgb,var(--ac-lt) 80%,transparent) 0%,transparent 70%)!important}
+html[data-hd="light"] .login-hero-title{color:var(--pa-text)}
+html[data-hd="light"] .login-hero-sub{color:var(--pa-muted)}
+html[data-hd="light"] .login-hero-icon{background:var(--pa-surface);border-color:var(--pa-border);color:var(--pa-text);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+html[data-hd="light"] .login-card{box-shadow:0 30px 70px -20px rgba(0,0,0,.18),0 0 0 1px var(--pa-border)}
+html[data-skin="tuiles"] .login-overlay{background-image:radial-gradient(1100px 620px at 10% 0%,#ffffff 0%,transparent 60%),radial-gradient(900px 700px at 100% 100%,#e6efe6 0%,transparent 65%),radial-gradient(700px 500px at 0% 100%,#f3ece2 0%,transparent 60%)!important;background-color:#f2f2ef!important}
+html[data-skin="tuiles"] .login-card{border-radius:28px}
+.login-logo-icon{color:#fff}
+@media screen{ html[data-mode="dark"][data-hd="light"] .login-overlay{background:#121212!important;background-image:radial-gradient(900px 600px at 100% 100%,#1d2b21 0%,transparent 65%)!important} }
+
+@media screen{
+  html[data-mode="dark"] .login-logo-text,html[data-mode="dark"] .login-title,html[data-mode="dark"] .login-av-name{color:var(--pa-text)!important}
+  html[data-mode="dark"] .login-sub,html[data-mode="dark"] .login-logo-sub,html[data-mode="dark"] .login-av-role{color:var(--pa-muted)!important}
+  html[data-mode="dark"] .login-av-btn{background:var(--pa-surface2)!important;border-color:var(--pa-border)!important}
+  html[data-skin="tuiles"][data-mode="dark"] .login-overlay{background-color:#0f0f0f!important;background-image:radial-gradient(900px 700px at 100% 100%,#1d2b21 0%,transparent 65%),radial-gradient(700px 500px at 0% 100%,#2b241a 0%,transparent 60%)!important}
+}
+/* ═════ Tuiles : barre des jours collante en verre pastel ═════ */
+html[data-skin="tuiles"] .wbm-wrap{top:-10px}
+html[data-skin="tuiles"] .wbm{left:14px;right:14px;top:8px;border-radius:22px;padding:5px;gap:4px;border:1px solid rgba(255,255,255,.7)!important;
+  background:linear-gradient(100deg,rgba(234,243,236,.78) 0%,rgba(244,241,234,.78) 55%,rgba(246,236,236,.74) 100%)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.5)!important;backdrop-filter:blur(22px) saturate(1.5)!important;
+  box-shadow:0 12px 32px -12px rgba(40,50,40,.28),inset 0 1px 0 rgba(255,255,255,.8)!important}
+html[data-skin="tuiles"] .wbx{border-radius:16px;background:rgba(255,255,255,.42);box-shadow:none!important;transition:background-color 180ms ease,transform 140ms cubic-bezier(.23,1,.32,1)}
+html[data-skin="tuiles"] .wbx:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){ html[data-skin="tuiles"] .wbx:not(.sel):hover{background:rgba(255,255,255,.75)} }
+html[data-skin="tuiles"] .wbx.sel{background:var(--tl-ink)!important;color:#fff}
+html[data-skin="tuiles"] .wbx.sel .l1 span,html[data-skin="tuiles"] .wbx.sel .l2,html[data-skin="tuiles"] .wbx.sel .l2 *:not(.v){color:rgba(255,255,255,.8)!important}
+html[data-skin="tuiles"] .wbx.sel .l2 .v:not(.warn):not(.bad){color:rgba(255,255,255,.85)!important}
+html[data-skin="tuiles"] .wbx.sel .v.warn{color:#f0c27a}html[data-skin="tuiles"] .wbx.sel .v.bad{color:#f3a49b}
+html[data-skin="tuiles"] .wbx.off{background:transparent}
+@media screen{
+  html[data-skin="tuiles"][data-mode="dark"] .wbm{background:linear-gradient(100deg,rgba(30,40,33,.78),rgba(40,36,30,.78) 55%,rgba(42,31,31,.74))!important;border-color:rgba(255,255,255,.08)!important;box-shadow:0 12px 32px -12px rgba(0,0,0,.6)!important}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx{background:rgba(255,255,255,.05)}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx.sel{background:#f2f2ef!important;color:#141414}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .l1 span,html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .l2,html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .l2 *:not(.v){color:#55554f!important}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .l1 b{color:#141414}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .l2 .v:not(.warn):not(.bad){color:#3d3d3a!important}
+  html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .v.warn{color:#a06a1c}html[data-skin="tuiles"][data-mode="dark"] .wbx.sel .v.bad{color:#b8473f}
+}
+@media (max-width:768px){ html[data-skin="tuiles"] .wbm{left:8px;right:8px;top:6px;border-radius:18px} }
 /* ═════ Ordinateur : place optimisée + notes qui s'adaptent ═════ */
 .wb-note .ico{width:14px;height:14px;color:var(--ac);vertical-align:-2px}
 .pv-note .ico{width:13px;height:13px;vertical-align:-2px}
@@ -2690,13 +2732,13 @@ html[data-skin="tuiles"] .wi-chips button.on{background:var(--tl-ink);color:var(
 <!-- ══ LOGIN OVERLAY ══ -->
 <div id="loginOverlay" class="login-overlay" style="display:none">
   <div class="login-hero">
-    <div class="login-hero-icon">📋</div>
+    <div class="login-hero-icon"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></div>
     <div class="login-hero-title" id="loginHeroTitle">Planning Commercial</div>
     <div class="login-hero-sub">Connectez-vous pour accéder au planning de votre équipe.</div>
   </div>
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-icon">📋</div>
+      <div class="login-logo-icon"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></div>
       <div>
         <div class="login-logo-text" id="loginStoreName">Planning Commercial</div>
         <div class="login-logo-sub" id="loginStoreLocation">—</div>
@@ -6585,6 +6627,8 @@ function renderContent(){
     initGanttDrag(); try{ placeWbInd(); }catch(e){} try{ wbMiniObserve(); }catch(e){} updateUndoBtn(); try{ rtLabel(document.getElementById('content')); }catch(e){} return; }
   const _tl=isTuiles(), _sug=_tl?tlSuggest(cW,cD):'', _nt=_tl?tlNote(cW,cD):'';
   document.getElementById('content').innerHTML=(_tl?`<div class="tl-top">${tlHero(cW,cD)}<div class="tl-wk">${weekCtx}</div></div>`:weekCtx)+`<div class="day-wrap${SEL_CI!=null?' has-sel':''}" id="dayWrap"><div class="day-main">${panel}</div><aside class="day-side" id="daySide" aria-label="Créneau sélectionné"><div class="ds-grab" aria-hidden="true"></div>${_side}${_tl?`<div class="tl-x">${_sug}${_nt}</div>`:''}</aside><div class="ds-backdrop" onclick="selectSlot(SEL_CI)"></div></div>`+(_tl?`<div class="tl-after">${_sug}${_nt}</div>`+tlTeam(cW):weekPanel)+renderMonthlyContract();
+  // Tuiles : la barre des jours collante doit vivre au niveau de la page, pas dans la colonne de droite, sinon elle défile avec elle
+  if(_tl){ try{ const w=document.querySelector('.tl-wk .wbm-wrap'), top=document.querySelector('.tl-top'); if(w&&top) top.after(w); }catch(e){} }
   initGanttDrag(); dayLayout(); dsSheetInit(); try{ gridVars(); }catch(e){}
   try{ const wd=document.querySelector('.wb-days'), sc=document.querySelector('.wb-card.sel'); if(wd&&sc&&wd.scrollWidth>wd.clientWidth+2){ const l=sc.offsetLeft-(wd.clientWidth-sc.offsetWidth)/2; wd.scrollLeft=Math.max(0,l); } }catch(e){}
   try{ placeWbInd(); }catch(e){}
