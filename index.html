@@ -2611,6 +2611,17 @@ html[data-skin="tuiles"] .tl-d7{display:none}
   html[data-skin="tuiles"] .tl-d7 span.cur{box-shadow:inset 0 0 0 2px var(--tl-ink)}
   html[data-skin="tuiles"] .tl-th span{display:none}
 }
+html[data-skin="tuiles"] .tl-np{display:block;max-width:100%;padding:0 6px;font-style:normal;font-size:11.5px;color:var(--warn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-skin="tuiles"] .tl-c:has(.tl-np){height:58px}
+html[data-skin="tuiles"] .tl-tot{display:flex;flex-direction:column;align-items:center;padding:10px 0 2px;font-variant-numeric:tabular-nums}
+html[data-skin="tuiles"] .tl-tot b{font-size:13.5px;color:var(--tl-ink)}
+html[data-skin="tuiles"] .tl-tot small{font-size:12px;color:var(--pa-muted)}
+html[data-skin="tuiles"] .tl-tot.l{align-items:flex-start;font-weight:700;font-size:13px;color:var(--tl-ink)}
+html[data-skin="tuiles"] .tl-tot.w{align-items:flex-start;padding-left:10px}
+html[data-skin="tuiles"] .tl-th .tl-k{font-size:13px;font-weight:500;color:var(--pa-muted)}
+html[data-skin="tuiles"] .tl-th .tl-k b{color:var(--tl-ink);font-weight:700}
+html[data-skin="tuiles"] .tl-hint{margin-top:10px;font-size:12px;color:var(--pa-muted)}
+@media (max-width:768px){ html[data-skin="tuiles"] .tl-tot:not(.l):not(.w){display:none} html[data-skin="tuiles"] .tl-th{flex-wrap:wrap} html[data-skin="tuiles"] .tl-th .tl-k{display:block!important;margin-left:0;width:100%} }
 @media print{ .tl-top .tl-hero,.tl-after,.tl-x,.tl-team{display:none!important} }
 /* ═════ Ordinateur : place optimisée + notes qui s'adaptent ═════ */
 .wb-note .ico{width:14px;height:14px;color:var(--ac);vertical-align:-2px}
@@ -5977,12 +5988,16 @@ function tlTeam(sem){
     g+=`<div class="tl-rule"></div><button type="button" class="tl-who" onclick="selectSlot(${ci})"><span class="emp-av" style="background:${c.color}">${ini(c.nom)}</span><span><b>${esc(c.nom)}</b><small>${fD(bE)}/sem</small></span></button>`;
     for(let j=0;j<7;j++){ const sl=DATA[sem].jours[j].collaborateurs[ci], h=calcH(sl), closed=H[j].closed&&h<=0;
       g+= closed?`<div class="tl-c off">fermé</div>`
-        : h>0?`<button type="button" class="tl-c w${j===cD?' cur':''}" style="--c:${c.color}" onclick="setDay(${j})" title="${JOURS[j]} : ${sl.debut} – ${sl.fin}"><b>${tlHm(h)}</b><small>${tlHH(sl.debut)}–${tlHH(sl.fin)}</small></button>`
+        : h>0?`<button type="button" class="tl-c w${j===cD?' cur':''}" style="--c:${c.color}" onclick="setDay(${j})" title="${JOURS[j]} : ${sl.debut} – ${sl.fin}${npHours(sl)>0?' · '+npList(sl).map(n=>(NP_TYPES[n.t]?.lbl||n.t)+' '+n.d+'–'+n.f).join(', '):''}"><b>${tlHm(h)}</b><small>${tlHH(sl.debut)}–${tlHH(sl.fin)}</small>${npHours(sl)>0?`<em class="tl-np">${esc(npList(sl).map(n=>NP_TYPES[n.t]?.lbl||n.t).join(', '))}</em>`:''}</button>`
         : `<button type="button" class="tl-c${j===cD?' cur':''}${sl.statut!=='work'?' st-'+sl.statut:''}" onclick="setDay(${j})"><small>${sl.statut!=='work'?({R:'repos',CP:'congé',MAL:'maladie'}[sl.statut]||sl.statut):!collOnDay(ci,sem,j)?'hors contrat':'—'}</small></button>`; }
     g+=`<div class="tl-w"><div><b>${tlHm(w)}</b><span>sur ${fD(bE)}</span></div><div class="tl-m"><i class="${d>=0.05?'over':d<=-0.05?'under':''}" style="width:${(bE>0?Math.min(100,w/bE/mx*100):0).toFixed(1)}%"></i><u style="left:${(1/mx*100).toFixed(1)}%"></u></div></div>`;
     g+=`<div class="tl-e">${Math.abs(d)<0.05?'<span class="ec-eq">=</span>':`<span class="ec-pill ${d>0?'w':'b'}">${(d>0?'+':'−')+tlHm(d)}</span>`}</div>`;
     g+=`<div class="tl-d7">${[0,1,2,3,4,5,6].map(j=>{ const hh=calcH(DATA[sem].jours[j].collaborateurs[ci]); return `<span class="${hh>0?'w':''}${j===cD?' cur':''}" style="--c:${c.color}">${hh>0?tlHm(hh):JCOURT[j][0]}</span>`; }).join('')}</div>`; });
-  return `<section class="tl-team" aria-label="Équipe cette semaine"><div class="tl-th">Équipe cette semaine<span>une case = un jour · cliquez pour l’ouvrir</span></div><div class="tl-tm">${g}</div></section>`; }
+  let tW=0,tB=0; WC.forEach((c,ci)=>{ for(let j=0;j<7;j++) tW+=calcH(DATA[sem].jours[j].collaborateurs[ci]); tB+=baseEff(ci,sem,c); }); const tD=tW-tB;
+  g+=`<div class="tl-rule"></div><div class="tl-tot l">Total du jour</div>`+[0,1,2,3,4,5,6].map(j=>{ const cj=calcJ(sem,j); return H[j].closed&&cj.tH<=0?`<div class="tl-tot"></div>`:`<div class="tl-tot"><b>${tlHm(cj.tH)}</b><small>${cj.tH>0&&cj.obj>0?Math.round(cj.prod)+' €/h':'—'}</small></div>`; }).join('')
+    +`<div class="tl-tot w"><b>${tlHm(tW)}</b><small>sur ${fD(tB)}</small></div><div class="tl-e">${Math.abs(tD)<0.05?'<span class="ec-eq">=</span>':`<span class="ec-pill ${tD>0?'w':'b'}">${(tD>0?'+':'−')+tlHm(tD)}</span>`}</div>`;
+  const ws=calcS(sem), pb=+DATA[sem].prod_budget||0;
+  return `<section class="tl-team" aria-label="Équipe cette semaine"><div class="tl-th">Équipe cette semaine<span class="tl-k">Objectif CA <b>${objSem(sem).toLocaleString('fr-FR')} €</b> · <b>${tlHm(ws.tH)}</b> · <b style="color:${pb>0&&ws.prodMoy<pb?'var(--bad)':'var(--ok)'}">${ws.prodMoy.toFixed(0)} €/h</b>${pb?' pour '+pb:''}</span></div><div class="tl-tm">${g}</div><div class="tl-hint">Une case = un jour : cliquez pour l’ouvrir, cliquez un nom pour modifier son créneau.</div></section>`; }
 
 // ─── Ordinateur : recherche et commandes rapides (Ctrl + K) ───
 function cmdkItems(){
@@ -6496,7 +6511,7 @@ function renderContent(){
     document.getElementById('content').innerHTML=weekCtx+(_phone?renderWeekStack(cW):renderWeekGrid(cW))+weekPanel+renderMonthlyContract();
     initGanttDrag(); try{ placeWbInd(); }catch(e){} try{ wbMiniObserve(); }catch(e){} updateUndoBtn(); try{ rtLabel(document.getElementById('content')); }catch(e){} return; }
   const _tl=isTuiles(), _sug=_tl?tlSuggest(cW,cD):'', _nt=_tl?tlNote(cW,cD):'';
-  document.getElementById('content').innerHTML=(_tl?`<div class="tl-top">${tlHero(cW,cD)}<div class="tl-wk">${weekCtx}</div></div>`:weekCtx)+`<div class="day-wrap${SEL_CI!=null?' has-sel':''}" id="dayWrap"><div class="day-main">${panel}</div><aside class="day-side" id="daySide" aria-label="Créneau sélectionné"><div class="ds-grab" aria-hidden="true"></div>${_side}${_tl?`<div class="tl-x">${_sug}${_nt}</div>`:''}</aside><div class="ds-backdrop" onclick="selectSlot(SEL_CI)"></div></div>`+(_tl?`<div class="tl-after">${_sug}${_nt}</div>`+tlTeam(cW):'')+weekPanel+renderMonthlyContract();
+  document.getElementById('content').innerHTML=(_tl?`<div class="tl-top">${tlHero(cW,cD)}<div class="tl-wk">${weekCtx}</div></div>`:weekCtx)+`<div class="day-wrap${SEL_CI!=null?' has-sel':''}" id="dayWrap"><div class="day-main">${panel}</div><aside class="day-side" id="daySide" aria-label="Créneau sélectionné"><div class="ds-grab" aria-hidden="true"></div>${_side}${_tl?`<div class="tl-x">${_sug}${_nt}</div>`:''}</aside><div class="ds-backdrop" onclick="selectSlot(SEL_CI)"></div></div>`+(_tl?`<div class="tl-after">${_sug}${_nt}</div>`+tlTeam(cW):weekPanel)+renderMonthlyContract();
   initGanttDrag(); dayLayout(); dsSheetInit(); try{ gridVars(); }catch(e){}
   try{ const wd=document.querySelector('.wb-days'), sc=document.querySelector('.wb-card.sel'); if(wd&&sc&&wd.scrollWidth>wd.clientWidth+2){ const l=sc.offsetLeft-(wd.clientWidth-sc.offsetWidth)/2; wd.scrollLeft=Math.max(0,l); } }catch(e){}
   try{ placeWbInd(); }catch(e){}
