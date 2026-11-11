@@ -170,6 +170,11 @@ body{
   .cmd-center{flex:1 1 auto;min-width:0}
   .cmd-center>*{flex-shrink:0}
   .cmd-center>.last-save{flex-shrink:1;min-width:0}
+  /* l'info d'enregistrement garde toujours une place lisible ; c'est le résumé de la semaine qui cède (il existe aussi dans le bloc Semaine) */
+  .cmd-center>.last-save:not(:empty){min-width:150px}
+  .cmd-center>.cmd-sum{flex-shrink:1;min-width:0;overflow:hidden}
+  .cmd-center{overflow:hidden}
+  .user-badge{flex-shrink:0}
   .cmd-bar.icons-only .cmd-bar-bottom .cmd-btn:not(.primary) .cmd-btn-label,.cmd-bar.icons-only .cmd-caret{display:none}
   .cmd-bar.icons-only .cmd-bar-bottom .cmd-btn:not(.primary){padding-left:11px;padding-right:11px}
 }
@@ -2588,7 +2593,7 @@ html[data-skin="tuiles"] .tl-e{display:flex;justify-content:flex-end}
 html[data-skin="tuiles"] .tl-d7{display:none}
 /* barre du haut : capsule en verre */
 @media (min-width:769px){
-  html[data-skin="tuiles"] .cmd-bar{margin:10px 14px 0;border-radius:24px;background:color-mix(in srgb,var(--tl-card) 82%,transparent)!important;-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:var(--tl-sh),inset 0 0 0 1px var(--pa-border)!important;border:0!important}
+  html[data-skin="tuiles"] .cmd-bar{margin:10px 14px 0;width:auto;max-width:calc(100% - 28px);border-radius:24px;background:color-mix(in srgb,var(--tl-card) 82%,transparent)!important;-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:var(--tl-sh),inset 0 0 0 1px var(--pa-border)!important;border:0!important}
 }
 @media (max-width:1100px){
   html[data-skin="tuiles"] .tl-top{grid-template-columns:1fr}
@@ -4984,7 +4989,8 @@ function fitCmdBar(){
   if(window.innerWidth<=768){ bar.classList.remove('two-rows'); return; }
   bar.classList.remove('two-rows','icons-only');
   const bot=bar.querySelector('.cmd-bar-bottom'), top=bar.querySelector('.cmd-bar-top');
-  const isOver=()=>(bot && bot.getBoundingClientRect().right > window.innerWidth+1) || (top && top.scrollWidth > top.clientWidth+2);
+  const sumCut=()=>{ const s=document.getElementById('cmdWeekSum'); return !!(s && s.offsetParent && s.scrollWidth > s.clientWidth+2); };
+  const isOver=()=>(bot && bot.getBoundingClientRect().right > window.innerWidth+1) || (top && top.scrollWidth > top.clientWidth+2) || sumCut();
   const sum=document.getElementById('cmdWeekSum'), R_=document.documentElement;
   if(sum && sum.textContent.trim()){ R_.classList.add('cmdsum-on'); if(isOver()) R_.classList.remove('cmdsum-on'); } else R_.classList.remove('cmdsum-on');
   if(isOver()) bar.classList.add('icons-only');
